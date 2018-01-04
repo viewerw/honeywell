@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 import Login from '../pages/login'
+import AuthRouterView from '../pages/index/routerView'
+import Page401 from '../pages/error/401'
 import Index from '../pages/index'
+import Shalter from '../pages/shalter'
 
 
 
@@ -12,28 +14,25 @@ Vue.use(Router)
 const router =  new Router({
   routes: [
     {
-      path: '/',
-      redirect:{name:'Login'}
-      
-    },
-    {
       path: '/login',
-      name: 'Login',
-      component: Login,
-      
+      name: 'login',
+      component: Login, 
     },
     {
-    	path:'/index',
-    	name:'Index',
-    	component: Index,
-    	children:[
-    		{
-          path:'shalter',
-          component:require('../pages/shalter')
-        }
-    	]
-    },
-    
+      path : '/',
+      name:'auth-routerView',
+      component : AuthRouterView,
+      redirect:'index',
+      children:[{
+        path : '/index',
+        name:'index',
+        component : Index
+      },{
+        path:'/401',
+        name:'401',
+        component:Page401,
+      }]
+    }
   ]
 });
 

@@ -12,6 +12,11 @@
 /*@import './scss/common.scss';*/
 @import './scss/base.scss';
 /*@import './scss/iconfont.css';*/
+body,html{
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   width: 100%;

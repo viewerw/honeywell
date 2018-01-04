@@ -1,0 +1,27 @@
+/**
+ *element-ui 样式覆盖
+ */
+.self-tabel{
+
+}
+.self-form{
+    &.noRequired{
+      .el-form-item__label{
+        &::before{
+          content:'';
+        }
+      }
+    }
+}
+.self-input{
+    input{
+      border-radius:0; 
+      &:focus{
+        border-color:#7EB338;
+        border-radius:0;   
+      }
+    }
+}
+.self-btn{
+    border-radius:0;
+}

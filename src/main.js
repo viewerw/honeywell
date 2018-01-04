@@ -8,13 +8,14 @@ import App from './App'
 import router from './router'
 import initRouter from './router/router-actions'
 import store from './store'
+import './scss/element-cover.scss'
 
 
 //initRouter(router)
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-/* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
