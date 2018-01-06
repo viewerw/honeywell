@@ -14,7 +14,7 @@
         </el-form>
     </div>
 </template>
-<<script>
+<script>
     export default {
         data(){
             return {

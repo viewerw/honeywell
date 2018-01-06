@@ -27,6 +27,11 @@ const router =  new Router({
         path : '/index',
         name:'index',
         component : Index
+      },
+      {
+        path:"/shalter",
+        name:"shalter",
+        component: Shalter
       },{
         path:'/401',
         name:'401',

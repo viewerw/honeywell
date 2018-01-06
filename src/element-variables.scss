@@ -4,4 +4,11 @@ $--color-primary:#7eb338;
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
+.el-table__expanded-cell{
+    padding-right:0!important;
+}
+
+.el-table__body-wrapper{
+    overflow:hidden !important;
+}
 @import "~element-ui/packages/theme-chalk/src/index";
