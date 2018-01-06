@@ -2,10 +2,10 @@
 	<div class = "header-bg">
         <div class = "overview">
             <div class = "title">
-                大棚概况
+                {{overview.title}}
             </div>
             <div class = "detail">
-                <p v-for="item in overview">{{item}}</p>
+                <p v-for="item in overview.items">{{item}}</p>
             </div>
         </div>
 	</div>
@@ -14,7 +14,7 @@
 	export default{
 		data(){
 			return{
-				
+
 			}
 		},
         props:['overview']
@@ -31,13 +31,12 @@
     .overview{
         margin:0 auto ;
         background-color:rgba(0,0,0,0.5);
-        width:30%;
         height:150px;
         padding:40px 20px 0 ;
         box-sizing:border-box;
+        width:max-content;
         .title {
             display: inline-block;
-            width:40%;
             height:80%;
             font-family: PingFangSC-Medium;
             font-size: 40px;
@@ -48,7 +47,6 @@
         }
         .detail {
             display: inline-block;
-            width:40%;
             height:80%;
             font-family: PingFangSC-Light;
             font-size: 18px;

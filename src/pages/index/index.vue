@@ -1,6 +1,12 @@
 <template>
     <div class="index">
       <div class="pre">
+        <div class="info">
+          <div class="title">农场介绍</div>
+          <div class="context">
+            土山土水生态农业园是在著名的农业专家赵亚夫的悉心指导下，以及世界500强的跨国公司霍尼韦尔的科技支持下，建立的智慧农业示范基地。它包括农业科技示范，农产品深加工，有机农业科普展览，及休闲观光农业旅游四大板块。
+          </div>
+        </div>
         <el-tooltip class="mark" content="软枣猕猴桃区" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <el-button class="point" name="1"></el-button>
         </el-tooltip>
@@ -53,6 +59,23 @@
       background-image: url(../../assets/images/index/map.png);
       background-size: cover;
       background-position-y: 66%;
+      .info{
+        background-color: rgba(0,0,0,0.50);
+        padding: 1rem;
+        color:#fff;
+        font-size: 1rem;
+        width:20rem;
+        top: 6rem;
+        left: 4rem;
+        position:absolute;
+        .title{
+          font-weight: bold;
+          padding-bottom: .5rem;;
+        }
+        .context{
+          line-height: 1.5rem;
+        }
+      }
       .pre{
           width: 100%;
           height: 100%;

@@ -9,7 +9,11 @@ const leftmenu = [
       children:[{
         name:'大棚温室管理',
         icon:'',
-        path:'/shalter/manage',
+        path:'/shalter/list',
+      },{
+        name:'草莓大棚',
+        icon:'',
+        path:'/shalter/detail',
       }]
     },
     {
@@ -18,5 +22,5 @@ const leftmenu = [
         path:'/test',
     },
   ]
-  
+
   export  default leftmenu

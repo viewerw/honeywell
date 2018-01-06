@@ -4,20 +4,20 @@
         class="self-menu"
         @open="handleOpen"
         @close="handleClose">
-        <template v-for="item in menu">
+        <template v-for="(item,index) in menu">
             <template v-if="item.children">
-                <el-submenu index="">
+                <el-submenu :index="index">
                     <template slot="title">
                         <span>{{item.name}}</span>
                     </template>
-                    <router-link v-for="item in item.children" :to="item.path">
-                        <el-menu-item index="">{{item.name}}</el-menu-item>
+                    <router-link v-for="(_item,_index) in item.children" :to="_item.path">
+                        <el-menu-item :index="index+'-'+_index">{{_item.name}}</el-menu-item>
                     </router-link>
                 </el-submenu>
             </template>
             <template v-else>
                 <router-link :to="item.path">
-                    <el-menu-item index="">
+                    <el-menu-item :index="index">
                         <span slot="title">{{item.name}}</span>
                     </el-menu-item>
                 </router-link>

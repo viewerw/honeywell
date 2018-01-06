@@ -4,7 +4,9 @@ import Login from '../pages/login'
 import AuthRouterView from '../pages/index/routerView'
 import Page401 from '../pages/error/401'
 import Index from '../pages/index'
-import Shalter from '../pages/shalter'
+import ShalterRouterView from '../pages/shalter/routerView'
+import ShalterDetail from '../pages/shalter/detail'
+import ShalterList from '../pages/shalter/list'
 
 
 
@@ -16,7 +18,7 @@ const router =  new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login, 
+      component: Login,
     },
     {
       path : '/',
@@ -31,7 +33,17 @@ const router =  new Router({
       {
         path:"/shalter",
         name:"shalter",
-        component: Shalter
+        redirect:'shalter/list',
+        component: ShalterRouterView,
+        children:[{
+          path:'list',
+          name:'shalterList',
+          component:ShalterList
+        },{
+          path:'detail',
+          name:'shalterDetail',
+          component:ShalterDetail
+        }]
       },{
         path:'/401',
         name:'401',
