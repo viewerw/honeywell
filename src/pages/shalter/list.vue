@@ -4,7 +4,6 @@
       <div class="shalter-list-container">
         <div class="util-bar">
           <el-input
-            placeholder="请输入大棚名"
             v-model="search.name">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
@@ -83,6 +82,7 @@
       border-right:1px solid #e0e0e0;
       padding-left:30px;
       .el-input{
+        font-size:1rem;
         input{
           border: none;
         }
@@ -92,11 +92,12 @@
       border-left:1px solid #e0e0e0;
       border-right:1px solid #e0e0e0;
       border-bottom:1px solid #e0e0e0;
+      font-size:1rem;
       th{
+        background-color: #f7f7f7;
         &:nth-child(1){
           padding-left:30px;
          }
-        background-color: #f7f7f7;
       }
       td{
         &:nth-child(1){
