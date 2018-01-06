@@ -17,7 +17,7 @@
     .leftSide{
         height: 100%;
         .header{
-            height: 200px;
+            height: 20rem;
             border-bottom: 1px solid #000;
             .title{
                 
@@ -27,13 +27,13 @@
             }
         }
         .menu{
-            height: calc(100% - 300px);
+            height: calc(100% - 30rem);
             border: 1px solid #000;
         }
         .user{
             position: absolute;
             bottom: 0;
-            height: 100px;
+            height: 10rem;
         }
     }
 </style>

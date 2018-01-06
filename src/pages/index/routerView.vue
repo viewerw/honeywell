@@ -34,7 +34,6 @@
         left: 0;
     }
     .right-side{
-        border: 1px solid #000;
         margin-left: 315px;
         min-height: 100vh;
     }
