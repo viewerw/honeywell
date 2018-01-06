@@ -28,6 +28,7 @@
 				<div class = "sensor-title">传感器</div>
 			<el-table
 				:data="sensorTable"
+				default-expand-all
 				style="width: 100%">
 				 <el-table-column type="expand">
       				<template class = "" slot-scope="props">
@@ -49,7 +50,23 @@
 						 <span>{{scope.row.name}}</span>
 					 </template>
 				 </el-table-column>
-				 <el-table-column label="读数"></el-table-column>
+				 <el-table-column label="读数">
+					 <template slot-scope="scope">
+						  <el-select size = "mini" v-model="scope.row.threshold" placeholder="请选择">
+								<el-option
+								v-for="item in thresholds"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+								<span style="float: left">{{ item.label }}</span>
+								<i  style = "float:right;margin-top:10px;" @click.stop = "editThreshold" class=" icon-position el-icon-edit "></i>
+								</el-option>
+								<el-option >
+									<span @click.stop= "addNewThreshold"><i class="el-icon-plus"></i>添加阈值设定</span>
+								</el-option>
+						</el-select>
+					 </template>
+				 </el-table-column>
 				<el-table-column label="序列号"></el-table-column>
 				<el-table-column label="设备状态"></el-table-column>
 				<el-table-column label="更新时间"></el-table-column>
@@ -66,6 +83,7 @@
 				<div class = "control-title">控制器</div>
 			<el-table
 				:data="controlTable"
+				default-expand-all
 				style="width: 100%">
 				 <el-table-column type="expand">
       				<template class = "" slot-scope="props">
@@ -100,11 +118,17 @@
 			</div>
 
 		</div>
+
+		<!-- 阈值弹框-->
+		<el-dialog  :visible.sync="dialogThresholdVisible" @close="closeDialog">
+            <threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value = "4"></threshold-set>
+        </el-dialog>
 	</div>
 </template>
 <script type="text/javascript">
 import Header from './header'
 import MinitorVideo from './minitor-video'
+import ThresholdSet from './thresholdSet'
 	export default{
 		data(){
 			return{
@@ -123,15 +147,24 @@ import MinitorVideo from './minitor-video'
 					url:'http://vjs.zencdn.net/v/oceans.mp4'
 				}],
 				getwayTable:[{name:'草莓大棚网关',id:'1234567890ABC',status:'在线'}],
-				sensorTable:[{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}],
-				controlTable:[{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}]
+				thresholds:[{label:'阈值1',value:1},{label:'阈值2',value:2}],
+				sensorTable:[{name:'传感器南',threshold:1,group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}],
+				controlTable:[{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}],
+
+				dialogThresholdVisible:false,
 
 			}
 		},
 		components:{
 			Header,
 			MinitorVideo,
+			ThresholdSet
+			},
+		methods:{
+			addNewThreshold(){
+				this.dialogThresholdVisible = true;
 			}
+		}
 
 	}
 </script>
@@ -163,6 +196,7 @@ import MinitorVideo from './minitor-video'
 			.expand-row:last-child{
 				margin-bottom:0px;
 			}
+
 		}
 		.control{
 			margin:30px 0;
@@ -184,7 +218,10 @@ import MinitorVideo from './minitor-video'
 				margin-bottom:0px;
 			}
 		}
+		
 
-
+		.icon-position{
+			
+		}
 	}
 </style>
