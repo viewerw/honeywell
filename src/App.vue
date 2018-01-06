@@ -11,9 +11,10 @@
 <style lang = "scss">
 /*@import './scss/common.scss';*/
 @import './scss/base.scss';
+@import '../src/scss/mixin';
 /*@import './scss/iconfont.css';*/
 body,html{
-  font-size: 10px;
+  font-size: 20px;
   width: 100%;
   height: 100%;
 }
