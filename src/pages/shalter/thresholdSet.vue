@@ -10,8 +10,8 @@
             <div class = "degree-bg"></div>
         </div>
         <div class = "right inline">
-            <el-radio-group v-model="value" size="mini" >
-                <el-radio style = "display:block;margin-bottom:10px" :class = "{space:index===1}"v-for = "(item,index) in values" v-model="value"  :label="item" border>{{item}}</el-radio>
+            <el-radio-group v-model="value" size="mini" @change = "handleChange" >
+                <el-radio style = "display:block;margin-bottom:10px" :class = "{space:index===1}"v-for = "(item,index) in values"  :label="item" border>{{item}}</el-radio>
             </el-radio-group> 
         </div>
     </div>
@@ -27,7 +27,9 @@
         },
         props:['title','values','value'],
         methods:{
-
+            handleChange(val){
+                this.$emit('update:value',val);
+            }
         }
     }
 </script>
@@ -37,10 +39,11 @@
         width:200px;
         height:300px;
         display: inline-block;
+        margin-right:30px;
         .title {
             text-align: center;
             line-height:40px;
-            margin-bottom:10px;
+            margin-bottom:20px;
         }
         .left{
             padding:5px 0;
