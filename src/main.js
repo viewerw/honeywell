@@ -9,7 +9,7 @@ import router from './router'
 import initRouter from './router/router-actions'
 import store from './store'
 import './scss/element-cover.scss'
-
+import './assets/iconfont/iconfont.css'
 
 //initRouter(router)
 

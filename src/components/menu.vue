@@ -8,6 +8,7 @@
             <template v-if="item.children">
                 <el-submenu :index="index">
                     <template slot="title">
+                        <i class="iconfont" :class="item.icon"></i>
                         <span>{{item.name}}</span>
                     </template>
                     <router-link v-for="(_item,_index) in item.children" :to="_item.path">
@@ -18,6 +19,7 @@
             <template v-else>
                 <router-link :to="item.path">
                     <el-menu-item :index="index">
+                        <i class="iconfont" :class="item.icon"></i>
                         <span slot="title">{{item.name}}</span>
                     </el-menu-item>
                 </router-link>
@@ -53,42 +55,54 @@
         a{
             display:block;
         }
+        i{
+          font-size:1.4rem;
+          padding-right: 10px;
+        }
         .el-menu{
             background-color:transparent;
         }
         .el-submenu{
             .el-menu-item{
-                padding-left: 2.5rem!important;
+                padding-left: 3.3rem!important;
                 font-size:1.2rem;
+                height:3rem;
+                line-height:3rem;
             }
             .el-submenu__title{
                 color: #B0B0B0;
                 font-size:1.5rem;
                 height:4.5rem;
                 line-height:4.5rem;
-                padding-left: 1.5rem !important;
-            .el-submenu__icon-arrow{
-                color: #B0B0B0;
-                font-size: 1rem;
-            }
-            &:hover{
-                 background-color: #7EB338;
-                 color: #fff;
+                padding-left: 1rem !important;
                 .el-submenu__icon-arrow{
-                  color: #fff;
+                    color: #B0B0B0;
+                    font-size: 1rem;
                 }
-            }
+                &:hover{
+                     background-color: #7EB338;
+                     color: #fff;
+                    i{
+                      color: #fff;
+                    }
+                    .el-submenu__icon-arrow{
+                      color: #fff;
+                    }
+                }
             }
         }
         .el-menu-item{
             color: #B0B0B0;
             font-size:1.5rem;
-            height:3rem;
-            line-height:3rem;
-            padding-left: 1.5rem !important;
+            height:4.5rem;
+            line-height:4.5rem;
+            padding-left: 1rem !important;
             &:hover{
                background-color: #7EB338;
                color: #fff;
+                i{
+                  color: #fff;
+                }
             }
             &.is-active{
                 background-color:#7EB338;
