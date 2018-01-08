@@ -56,7 +56,7 @@
             display:block;
         }
         i{
-          font-size:1.4rem;
+          font-size:1.9rem;
           padding-right: 10px;
         }
         .el-menu{
@@ -80,8 +80,8 @@
                     font-size: 1rem;
                 }
                 &:hover{
-                     background-color: #7EB338;
-                     color: #fff;
+                    background-color: #7EB338;
+                    color: #fff;
                     i{
                       color: #fff;
                     }
