@@ -10,9 +10,7 @@
             <div class = "degree-bg"></div>
         </div>
         <div class = "right inline">
-            <el-radio-group v-model="value" size="mini" @change = "handleChange" >
-                <el-radio style = "display:block;margin-bottom:10px" :class = "{space:index===1}"v-for = "(item,index) in values"  :label="item" border>{{item}}</el-radio>
-            </el-radio-group> 
+            <el-input size = "mini" style = "display:block;width:60px;margin-bottom:10px" :class = "{space:index===1}"v-for = "(item,index) in values"  :label="item" border>{{item}}</el-input>
         </div>
     </div>
 </template>
