@@ -17,7 +17,10 @@
             <p>用户名：admin</p>
             <p class="cp"><span @click="logout">退出</span></p>
         </div>
-        <div class="slide-bar" :class="slideOpen?'open':''" @click="toggleSlide"></div>
+        <!--<div class="slide-bar" :class="slideOpen?'open':''" @click="toggleSlide"></div>-->
+        <div class="new-slide-bar" :class="slideOpen?'open':''" @click="toggleSlide">
+          <i class="iconfont" :class="slideOpen?'icon-close':'icon-slidebar'"></i>
+        </div>
     </div>
 </template>
 <script >
@@ -79,11 +82,26 @@
             background-color: #5B5B5B;
             color:#b0b0b0;
             p{
+                line-height: 2.1rem;
+                padding-left: 1rem;
                 &:nth-child(1){
                     padding-top: 0.5rem;
                 }
-                line-height: 2.1rem;
-                padding-left: 1rem;
+            }
+        }
+        .new-slide-bar{
+            position: fixed;
+            z-index: 100;
+            left: 1rem;
+            top: 1rem;
+            i{
+              font-size: 1.5rem;
+              color: #2c2c2c;
+              font-weight: bold;
+              cursor: pointer;
+            }
+            &.open{
+                left: 17.25rem;
             }
         }
         .slide-bar{

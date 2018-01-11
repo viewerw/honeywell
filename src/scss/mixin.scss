@@ -70,11 +70,23 @@ $fc:#fff;
 }
 
 .fl{
-  float: left;
+  float: left!important;
 }
 .fr{
-  float: right;
+  float: right!important;
 }
 .cp{
-  cursor: pointer;
+  cursor: pointer!important;
+}
+.tr{
+  text-align: right!important;
+}
+.tl{
+  text-align: left!important;
+}
+.w100{
+  width: 100%!important;
+}
+.pr20{
+  padding-right: 20px!important;
 }
