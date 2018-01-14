@@ -29,7 +29,7 @@
             >
             <template slot-scope="scope">
               <i class="el-icon-edit cp" @click="edit(scope.row.id)"></i>
-              <i class="el-icon-view cp"></i>
+              <i class="el-icon-view cp" @click="goDetail"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -105,6 +105,9 @@
         edit(id){
           this.editVisible = true;
           this.editForm.id = id;
+        },
+        goDetail(){
+          this.$router.push({name:'shalterDetail'})
         },
         clearSearch(){
           this.search.name = ''

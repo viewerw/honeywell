@@ -7,11 +7,23 @@
             土山土水生态农业园是在著名的农业专家赵亚夫的悉心指导下，以及世界500强的跨国公司霍尼韦尔的科技支持下，建立的智慧农业示范基地。它包括农业科技示范，农产品深加工，有机农业科普展览，及休闲观光农业旅游四大板块。
           </div>
         </div>
-        <el-tooltip class="mark" content="软枣猕猴桃区" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
-          <el-button class="point" name="1"></el-button>
+        <el-tooltip class="mark" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
+          <div slot="content">软枣猕猴桃区<div class="num top">4</div></div>
+          <el-button class="point" name="1">
+          </el-button>
         </el-tooltip>
         <el-tooltip class="mark" content="樱桃区" placement="bottom" effect="light" :value="mark" popper-class="self-tip" :manual="true">
-          <el-button class="point" name="2"></el-button>
+          <div slot="content">
+            软枣猕猴桃区
+            <div class="num bottom">4</div>
+            <div class="tip-content">
+              <p>面积：15m</p>
+              <p>气温：11</p>
+              <p>水分：50%</p>
+              <p>光照：10100Lux</p>
+            </div>
+          </div>
+          <el-button class="point" name="2" @mouseover="tipOver"></el-button>
         </el-tooltip>
         <el-tooltip class="mark" content="蓝莓二区" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <el-button class="point" name="3"></el-button>
@@ -44,6 +56,11 @@
               mark:false
             }
         },
+        methods:{
+          tipOver(val){
+            console.log('维维豆奶');
+          }
+        },
         mounted(){
           setTimeout(()=>this.mark = true);
         }
@@ -53,6 +70,26 @@
   .self-tip{
     font-size: 1rem;
   }
+  .num{
+    position: absolute;
+    top: -10px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 15px;
+    right: -10px;
+    &.bottom{
+      top: auto;
+      bottom: -10px;
+    }
+  }
+  .tip-content{
+      margin-top:0.3rem;
+      font-size: 0.8rem;
+    }
   .index{
       width: 100%;
       height: 100vh;

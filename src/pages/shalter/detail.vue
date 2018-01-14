@@ -50,7 +50,7 @@
 				</el-table-column>
 			</el-table>
 			<div class= "sensor">
-				<div class = "sensor-title">传感器1</div>
+				<div class = "sensor-title">传感器</div>
 			<el-table
 				:data="sensorTable"
 				default-expand-all
@@ -66,13 +66,15 @@
                   <el-col :span = "4">
                     <div class="cell">
                       <div class="tr pr20">
-                        <i class="el-icon-edit"></i></div>
+                        <i class="el-icon-edit"></i>
+                        <i class="el-icon-delete"></i>
                       </div>
+                    </div>
                   </el-col>
                 </el-row>
                 </template>
            </el-table-column>
-          <el-table-column label="设备名称">
+          <el-table-column label="设备名称" style="width:16.66%;">
              <template  slot-scope="scope">
                <span>{{scope.row.name}}</span>
              </template>
@@ -94,13 +96,14 @@
               </el-select>
              </template>
            </el-table-column>
-          <el-table-column label="序列号"></el-table-column>
-          <el-table-column label="设备状态"></el-table-column>
-          <el-table-column label="更新时间"></el-table-column>
-          <el-table-column :render-header="renderSensorOptionHeader">
+          <el-table-column label="序列号" style="width:16.66%;"></el-table-column>
+          <el-table-column label="设备状态" style="width:16.66%;"></el-table-column>
+          <el-table-column label="更新时间" style="width:16.66%;"></el-table-column>
+          <el-table-column :render-header="renderSensorOptionHeader" style="width:16.66%;">
             <template slot-scope = "scope">
               <div class="tr pr20">
                 <i class="el-icon-delete" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -108,7 +111,7 @@
 			</div>
 		<!--控制器-->
 		<div class= "control">
-				<div class = "control-title">控制器1</div>
+				<div class = "control-title">控制器</div>
 			<el-table
 				:data="controlTable"
 				default-expand-all
@@ -116,11 +119,11 @@
           <el-table-column type="expand">
             <template class = "" slot-scope="props">
             <el-row class ="expand-row" v-for = "(sensor,index) in props.row.group">
-              <span style="width:20%" >{{sensor.name}}</span>
-              <span style="width:20%">{{sensor.id}}</span>
-              <span style="width:20%">{{sensor.status}}</span>
-              <span style="width:20%">{{sensor.time}}</span>
-              <span style="width:18%">
+              <span style="width:17%" >{{sensor.name}}</span>
+              <span style="width:17%">{{sensor.id}}</span>
+              <span style="width:17%" :class="sensor.status === '离线'?'status-offline':'status-online'">{{sensor.status}}</span>
+              <span style="width:17%">{{sensor.time}}</span>
+              <span style="width:18%" class="vam">
                 <div class="cell">
                   <div class="tr pr20">
                     <el-switch
@@ -130,13 +133,13 @@
                       active-color="#13ce66"
                       inactive-color="#ff4949">
                     </el-switch>
-                    <div class="open-close" v-else>
-                      <div class="open-close-open">开</div>
-                      <div class="open-close-close">关</div>
-                      <div class="open-close-stop">停</div>
-                    </div>
+                    <process-switch v-else class="process-switch" :status="sensor.mark"></process-switch>
                   </div>
                 </div>
+              </span>
+              <span style="width:11%" class="tr pr20">
+                <i class="el-icon-edit"></i>
+                <i class="el-icon-delete"></i>
               </span>
             </el-row>
             </template>
@@ -149,10 +152,12 @@
           <el-table-column label="序列号"></el-table-column>
           <el-table-column label="设备状态"></el-table-column>
           <el-table-column label="最后更新时间"></el-table-column>
+          <el-table-column label="操作" class="tr"></el-table-column>
           <el-table-column :render-header="renderSensorOptionHeader" >
             <template slot-scope = "scope" >
               <div class="tr pr20">
                 <i class="el-icon-delete" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -197,16 +202,21 @@
       <div class="chart-container">
         <div class="title">空气湿度传感器历史曲线</div>
         <div class="date">
-          {{dateText}}
           <el-date-picker
+            ref="date-picker"
             class="date-picker"
-            value-format="yyyy-MM-dd"
+            @change="changeDate"
             v-model="date"
-            type="date"
-            placeholder="选择日期">
+            :type="dateType"
+            :format="dateOption[dateType].format"
+            placeholder="选择周">
           </el-date-picker>
         </div>
-        <div class="chart-div" id="chart"></div>
+        <div class="dateType">
+          <div v-for="(value,key) in dateOption" @click="dateType = key" :class="dateType===key?'active':''">{{value.value}}</div>
+        </div>
+        <div class="chart-div" id="chart">
+        </div>
       </div>
     </el-dialog>
 	</div>
@@ -217,7 +227,8 @@ import MinitorVideo from './minitor-video'
 import ThresholdSet from './thresholdSet'
 import moment from 'moment'
 import echarts from 'echarts'
-	export default{
+import processSwitch from './processSwitch'
+	export default {
 		data(){
 			return{
         chart:null,
@@ -241,7 +252,16 @@ import echarts from 'echarts'
 				thresholds:[{label:'阈值1',id:1,value:[1,2,3,4,3,2,1]},{label:'阈值2',id:2,value:[4,2,3,4,3,2,4]}],
 				sensorTable:[{name:'传感器南',threshold:1,group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}],
 				controlTable:[{name:'水阀',group:[{name:'水阀南',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',switch:true},{name:'水阀北',id:'34325325235',status:'在线',time:'2018年1月1日 09:00',switch:false}]},
-          {name:'遮阳帘',group:[{name:'外遮阳帘',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00'}]}],
+          {name:'遮阳帘',
+            group:[
+              {name:'内遮阳帘',id:'12324555',status:'离线',time:'2018年1月1日 10:00',mark:0},
+              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:1},
+              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:2},
+              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:3},
+              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:4},
+              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:5},
+            ]
+          }],
 				thresholdName:'',
 				newThreshold:[],
 				dialogThresholdVisible:false,
@@ -255,36 +275,93 @@ import echarts from 'echarts'
 
 				dialogSensorGroupVisible:false,
 				sensorGroupName:'',
+        dateType:'date',
+        dateOption:{
+          date:{
+            format:'yyyy年MM月dd日',
+            valueFormat:'yyyy-MM-dd',
+            value:'天'
+          },
+          week:{
+            format:'yyyy年WW周',
+            valueFormat:'',
+            value:'周'
+          },
+          month:{
+            format:'yyyy年MM月',
+            valueFormat:'yyyy-MM',
+            value:'月'
+          }
+        }
 			}
 		},
     created(){
-      this.date = moment().format('YYYY-MM-DD');
+      this.date = moment();
     },
 		components:{
 			Header,
 			MinitorVideo,
-			ThresholdSet
+			ThresholdSet,
+      processSwitch
 			},
     computed:{
-      dateText(){
-        let _date = this.date.split('-');
-        return _date[0]+'年'+_date[1]+'月'+_date[2]+'日'
-      }
     },
     watch:{
+      dateType(val){
+        console.log(val);
+      },
       dialogChartVisible(val){
         if(val&&!this.chart){
-          this.initChart();
+          this.$nextTick(()=>{
+            this.initChart().setOptions()
+          });
         }
-      }
+      },
     },
 		methods:{
       initChart(){
         let dom = this.$el.querySelector('#chart');
-        echarts.init(dom);
+        this.chart = echarts.init(dom);
+        return this;
+      },
+      changeDate(val){
+        console.log(val)
       },
       setOptions(val){
-        let option = {
+        let option =  {
+          color: ['#81b22f', '#f3d71c', '#f4b9a9'],
+          xAxis: {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00','2:00','4:00','6:00','8:00','10:00','12:00','14:00','16:00']
+
+          },
+          grid: {
+            top: '10%',
+            bottom: '5%',
+            left:0,
+            width:'100%',
+            containLabel: true
+          },
+          yAxis: {
+            nameGap: 20,
+            name: '(%)',
+            min: 0,
+            max: 100,
+            splitNumber: 5,
+            type: 'value',
+            axisLabel: {
+              formatter: '{value}',
+            },
+            splitLine:{
+              lineStyle:{
+                color:'#e0e0e0',
+                type:'dashed',
+                width:2
+              }
+            }
+
+          },
           tooltip : {
             trigger: 'axis',
             axisPointer: {
@@ -294,33 +371,135 @@ import echarts from 'echarts'
               }
             }
           },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis : [
+          series: [
             {
-              type : 'category',
-              boundaryGap : false,
-              data : ['周一','周二','周三','周四','周五','周六','周日']
-            }
-          ],
-          yAxis : [
+              name:'危险区域低',
+              type: 'line',
+              animation: false,
+              areaStyle: {
+                normal: {}
+              },
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              markArea: {
+                data: [[{
+                  yAxis: '0'
+                },
+                  {
+                    yAxis: '15'
+                  }]]
+              },
+
+            },
             {
-              type : 'value'
-            }
-          ],
-          series : [
+              name: '警戒区域低',
+              type: 'line',
+              animation: false,
+              areaStyle: {
+                normal: {}
+              },
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              markArea: {
+                data: [[{
+                  yAxis: '15'
+                },
+                  {
+                    yAxis: '30'
+                  }]]
+              }
+            },
             {
-              name:'邮件营销',
+              name: '安全区域',
+              type: 'line',
+              animation: false,
+              areaStyle: {
+                normal: {}
+              },
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              markArea: {
+                data: [[{
+                  yAxis: '30'
+                },
+                  {
+                    yAxis: '70'
+                  }]]
+              }
+            },
+            {
+              name: '警戒区域高',
+              type: 'line',
+              animation: false,
+              areaStyle: {
+                normal: {}
+              },
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              markArea: {
+                data: [[{
+                  yAxis: '70'
+                },
+                  {
+                    yAxis: '85'
+                  }]]
+              }
+            },
+            {
+              name: '危险区域高',
+              type: 'line',
+              animation: false,
+              areaStyle: {
+                normal: {}
+              },
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              markArea: {
+                data: [[{
+                  yAxis: '85'
+                },
+                  {
+                    yAxis: '100'
+                  }]]
+              }
+            },
+            {
               type:'line',
               stack: '总量',
-              data:[120, 132, 101, 134, 90, 230, 210]
+              lineStyle:{
+                normal:{
+                  color:'#000'
+                }
+              },
+              itemStyle:{
+                normal:{
+                  color:'#fff'
+                }
+              },
+              smooth:true,
+              areaStyle: {normal: {
+                opacity:0,
+              }},
+              data:[10,19,44,12,66,89,55,70,80]
             },
-          ]
+          ],
         };
+        this.chart.setOption(option)
       },
 			changeGetwayName(){
 
@@ -392,6 +571,12 @@ import echarts from 'echarts'
 	}
 </script>
 <style lang="scss">
+  .status-online{
+
+  }
+  .status-offline{
+    color:red
+  }
   .self-popover{
     height: 5rem;
     width: 14rem;
@@ -457,20 +642,51 @@ import echarts from 'echarts'
       font-size: 1.5rem;
       text-align: center;
     }
+    .dateType{
+      position: absolute;
+      background-color: #bfbfbf;
+      border-radius: 2rem;
+      cursor: pointer;
+      top: 3.5rem;
+      right: 2rem;
+      &>div{
+          display: inline-block;
+          color: #fff;
+          width: 2rem;
+          height: 2rem;
+          text-align: center;
+          line-height: 2rem;
+          border-radius: 2rem;
+          font-weight:bold;
+        &.active{
+          background-color: #7eb338;
+         }
+      }
+      &>div:nth-child(1){
+
+        }
+      &>div:nth-child(2){
+
+        }
+      &>div:nth-child(3){
+
+        }
+    }
     .date{
       font-size: 1rem;
       margin: 0 auto;
-      width: 8rem;
+      width: 9rem;
       text-align: center;
       position: relative;
       margin-top: 1rem;
+      height: 2rem;
       .date-picker{
         position: absolute;
         width: 100%;
         height: 100%;
         top: 1px;
         right: 0;
-        opacity: 0;
+        /*opacity: 0;*/
       }
     }
     .chart-div{
@@ -512,6 +728,9 @@ import echarts from 'echarts'
 		}
 		.control{
 			margin:30px 0;
+      .process-switch{
+
+      }
       .open-close{
         &>div{
             margin: 0 .5rem;

@@ -1,13 +1,16 @@
 <template>
     <div class="left-side">
         <div class="header">
-            <div class="title">
-                <img src="">
+            <div class="title" @click="goIndex">
+                <img src="../../assets/images/Honeywell_Logo.png">
             </div>
             <div class="info">
                 <p>温度：25 ℃</p>
                 <p>湿度：60%</p>
-                <p>风力：1级</p>
+                <p>风力/风向：1级  <span style="padding-left: 5px;transform: rotate(0deg)">▲</span></p>
+                <p>光辐射：210 w/m² </p>
+                <p>雨量：18mm</p>
+                <p>气压：108hPa</p>
             </div>
         </div>
         <div class="menu">
@@ -33,6 +36,9 @@
         },
         components:{selfMenu},
         methods:{
+            goIndex(){
+              this.$router.push({name:'index'})
+            },
             logout(){
                 this.$router.push({name:'login'})
             },
@@ -50,7 +56,7 @@
         background-color: #404040;
         color:#fff;
         .header{
-            height:14rem;
+            height:18rem;
             .title{
                 padding:2.5rem 2.5rem;
                 img{
@@ -68,7 +74,7 @@
             }
         }
         .menu{
-            height: calc(100% - 19rem);
+            height: calc(100% - 23rem);
             background-color: transparent;
             border-right-color: transparent;
             overflow-y: auto;
