@@ -66,8 +66,8 @@
                   <el-col :span = "4">
                     <div class="cell">
                       <div class="tr pr20">
-                        <i class="el-icon-edit"></i>
-                        <i class="el-icon-delete"></i>
+                        <i class="el-icon-edit pr20 cp" @click="dialogSensorVisible=true"></i>
+                        <i class="el-icon-delete cp" @click="deleteSensor"></i>
                       </div>
                     </div>
                   </el-col>
@@ -102,8 +102,8 @@
           <el-table-column :render-header="renderSensorOptionHeader" style="width:16.66%;">
             <template slot-scope = "scope">
               <div class="tr pr20">
-                <i class="el-icon-delete" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
-                <i class="el-icon-edit" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit pr20 cp" @click = "editDialogSensorVisible=true"></i>
+                <i class="el-icon-delete cp" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -119,11 +119,11 @@
           <el-table-column type="expand">
             <template class = "" slot-scope="props">
             <el-row class ="expand-row" v-for = "(sensor,index) in props.row.group">
-              <span style="width:17%" >{{sensor.name}}</span>
+              <span style="width:15%" >{{sensor.name}}</span>
               <span style="width:17%">{{sensor.id}}</span>
               <span style="width:17%" :class="sensor.status === '离线'?'status-offline':'status-online'">{{sensor.status}}</span>
               <span style="width:17%">{{sensor.time}}</span>
-              <span style="width:18%" class="vam">
+              <span style="width:20%" class="vam">
                 <div class="cell">
                   <div class="tr pr20">
                     <el-switch
@@ -137,9 +137,9 @@
                   </div>
                 </div>
               </span>
-              <span style="width:11%" class="tr pr20">
-                <i class="el-icon-edit"></i>
-                <i class="el-icon-delete"></i>
+              <span style="width:10%" class="tr pr20">
+                <i class="el-icon-edit pr20 cp" @click="dialogControlVisible=true"></i>
+                <i class="el-icon-delete cp" @click="deleteControl"></i>
               </span>
             </el-row>
             </template>
@@ -152,12 +152,12 @@
           <el-table-column label="序列号"></el-table-column>
           <el-table-column label="设备状态"></el-table-column>
           <el-table-column label="最后更新时间"></el-table-column>
-          <el-table-column label="操作" class="tr"></el-table-column>
+          <el-table-column label="操作"></el-table-column>
           <el-table-column :render-header="renderSensorOptionHeader" >
             <template slot-scope = "scope" >
               <div class="tr pr20">
-                <i class="el-icon-delete" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
-                <i class="el-icon-edit" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit pr20 cp" @click = "editDialogControlVisible=true"></i>
+                <i class="el-icon-delete cp" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -165,23 +165,93 @@
 			</div>
 		</div>
 		<!--网关名-->
-		<el-dialog title = "网关名修改" :visible.sync="dialogGetwayVisible" width="30%"  @close="closeGetwayDialog">
-			<span>网关名</span>
-			<el-input v-model = "getwayName" size = "small" style = "width:250px"></el-input>
+		<el-dialog class="shalter-edit-dialog" :visible.sync="dialogGetwayVisible" width="30%"  @close="closeGetwayDialog">
+      <div slot="title" class="title">修改大棚名</div>
+      <el-form>
+        <el-form-item label="大棚名：" label-width="80px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
 			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:30px;font-weight:bold;margin-right:30px" @click="getwayBtnSure">确 定</el-button>
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="getwayBtnSure">确 定</el-button>
 			</span>
 		</el-dialog>
+    <!--修改传感器-->
+    <el-dialog class="shalter-edit-dialog" :visible.sync="dialogSensorVisible" width="30%"  @close="dialogSensorVisible=false">
+      <div slot="title" class="title">传感器修改</div>
+      <el-form>
+        <el-form-item label="传感器名：" label-width="100px">
+          <el-input></el-input>
+        </el-form-item>
+        <el-form-item label="修改分组：" label-width="100px">
+          <el-select placeholder="选择分组" style="width:100%;" value="组南">
+            <el-option label="组南" value="1" selected></el-option>
+            <el-option label="组北" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="dialogSensorVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
+    <!--修改传感器组名-->
+    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogSensorVisible" width="30%"  @close="editDialogSensorVisible=false">
+      <div slot="title" class="title">修改分组名</div>
+      <el-form>
+        <el-form-item label="分组名：" label-width="80px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogSensorVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
 		<!--传感器分组名-->
-		<el-dialog title = "创建组" :visible.sync="dialogSensorGroupVisible" width="30%"  @close="sensorGroupName = ''">
-			<span>组名</span>
-			<el-input v-model = "sensorGroupName" size = "small" style = "width:250px"></el-input>
+		<el-dialog class="shalter-edit-dialog" title = "创建分组" :visible.sync="dialogSensorGroupVisible" width="30%"  @close="sensorGroupName = ''">
+      <div slot="title" class="title">创建分组</div>
+      <el-form>
+        <el-form-item label="分组名：" label-width="80px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
 			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:30px;font-weight:bold;margin-right:30px" @click="sensorGroupBtnSure">确 定</el-button>
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="sensorGroupBtnSure">确 定</el-button>
 			</span>
 		</el-dialog>
+
+    <!--修改控制器-->
+    <el-dialog class="shalter-edit-dialog" :visible.sync="dialogControlVisible" width="30%"  @close="dialogControlVisible=false">
+      <div slot="title" class="title">控制器修改</div>
+      <el-form>
+        <el-form-item label="控制器名：" label-width="100px">
+          <el-input></el-input>
+        </el-form-item>
+        <el-form-item label="修改分组：" label-width="100px">
+          <el-select placeholder="选择分组" style="width:100%;" value="组南">
+            <el-option label="组南" value="1" selected></el-option>
+            <el-option label="组北" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="dialogControlVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
+    <!--修改控制器组名-->
+    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogControlVisible" width="30%"  @close="editDialogControlVisible=false">
+      <div slot="title" class="title">修改分组名</div>
+      <el-form>
+        <el-form-item label="分组名：" label-width="80px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogControlVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
+
 		<!-- 阈值弹框-->
-		<el-dialog  :visible.sync="dialogThresholdVisible" width="60%" @close="closeThresholdsDialog">
+		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="60%" @close="closeThresholdsDialog">
 			<div class ="dialog-top">
 				<span>传感器阈值名</span>
 				<el-input v-model = "thresholdName" size = "small" style = "width:250px"></el-input>
@@ -197,8 +267,8 @@
 				<el-button type="text" style = "width:100px;font-size:30px;font-weight:bold;margin-right:30px" @click="btnSure">确 定</el-button>
 			</span>
         </el-dialog>
-
-    <el-dialog  :visible.sync="dialogChartVisible"  @close="dialogChartVisible=false">
+    <!-- 报表弹框-->
+    <el-dialog  class="shalter-edit-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false">
       <div class="chart-container">
         <div class="title">空气湿度传感器历史曲线</div>
         <div class="date">
@@ -272,7 +342,11 @@ import processSwitch from './processSwitch'
 
 				dialogGetwayVisible:false,
 				getwayName:'',
-
+        dialogSensorVisible:false,
+        editDialogSensorVisible:false,
+        dialogControlVisible:false,
+        editDialogControlVisible:false,
+        dialogControlVisible:false,
 				dialogSensorGroupVisible:false,
 				sensorGroupName:'',
         dateType:'date',
@@ -296,7 +370,7 @@ import processSwitch from './processSwitch'
 			}
 		},
     created(){
-      this.date = moment();
+      this.date = new Date();
     },
 		components:{
 			Header,
@@ -504,6 +578,18 @@ import processSwitch from './processSwitch'
 			changeGetwayName(){
 
 			},
+      deleteSensor(){
+        this.$confirm(`确认从分组中删除该传感器?`,{
+          type:'warning',
+          showCancelButton:false,
+        })
+      },
+      deleteControl(){
+        this.$confirm(`确认从分组中删除该控制器?`,{
+          type:'warning',
+          showCancelButton:false,
+        })
+      },
 			addNewThreshold(){
 				this.dialogThresholdVisible = true;
 			},
@@ -551,7 +637,7 @@ import processSwitch from './processSwitch'
 				this.dialogGetwayVisible = false;
 			},
 			renderSensorOptionHeader(h){
-				return h('div',{class:'tr pr20 w100'},[h('i',{class:'el-icon-plus',on: {click: this.addNewSensorGroup},},)]);
+				return h('div',{class:'tr pr20 w100'},[h('i',{class:'el-icon-plus cp',on: {click: this.addNewSensorGroup},},)]);
 			},
 			addNewSensorGroup(){
 				this.dialogSensorGroupVisible  = true;

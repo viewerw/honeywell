@@ -18,6 +18,11 @@ body,html{
   width: 100%;
   height: 100%;
 }
+@media screen and (max-width: 1500px){
+  body,html{
+    font-size:16px;
+  }
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   width: 100%;

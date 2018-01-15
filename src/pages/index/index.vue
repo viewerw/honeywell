@@ -8,28 +8,30 @@
           </div>
         </div>
         <el-tooltip class="mark" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
-          <div slot="content">软枣猕猴桃区<div class="num top">4</div></div>
-          <el-button class="point" name="1">
-          </el-button>
-        </el-tooltip>
-        <el-tooltip class="mark" content="樱桃区" placement="bottom" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <div slot="content">
             软枣猕猴桃区
-            <div class="num bottom">4</div>
-            <div class="tip-content">
+            <div class="num top" @click="showMore=!showMore;fakeAction1();">
+              <span :class="showMore?'hide':''">4</span>
+              <i class="el-icon-close" :class="showMore?'':'hide'"></i>
+            </div>
+            <div class="tip-content" :class="showMore?'':'hide'">
               <p>面积：15m</p>
               <p>气温：11</p>
               <p>水分：50%</p>
               <p>光照：10100Lux</p>
             </div>
           </div>
+          <el-button class="point" name="1">
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="mark" content="樱桃区" placement="bottom" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <el-button class="point" name="2" @mouseover="tipOver"></el-button>
         </el-tooltip>
         <el-tooltip class="mark" content="蓝莓二区" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <el-button class="point" name="3"></el-button>
         </el-tooltip>
         <el-tooltip class="mark" content="蓝莓一区" placement="bottom" effect="light" :value="mark" popper-class="self-tip" :manual="true">
-          <el-button class="point" name="4"></el-button>
+          <el-button class="point" name="4" ></el-button>
         </el-tooltip>
         <el-tooltip class="mark" content="树葡萄温室" placement="top" effect="light" :value="mark" popper-class="self-tip" :manual="true">
           <el-button class="point" name="5"></el-button>
@@ -53,13 +55,20 @@
     export default{
         data(){
             return{
-              mark:false
+              mark:false,
+              showMore:false,
             }
         },
         methods:{
           tipOver(val){
             console.log('维维豆奶');
-          }
+          },
+          fakeAction1(){
+            this.mark=false;
+            setTimeout(()=>{
+              this.mark=true;
+            })
+          },
         },
         mounted(){
           setTimeout(()=>this.mark = true);
@@ -72,13 +81,14 @@
   }
   .num{
     position: absolute;
+    cursor: pointer;
     top: -10px;
     background-color: red;
     color: #fff;
     text-align: center;
     width: 25px;
     height: 25px;
-    line-height: 25px;
+    line-height: 26px;
     border-radius: 15px;
     right: -10px;
     &.bottom{

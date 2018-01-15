@@ -25,10 +25,14 @@
             label="网关序列号">
           </el-table-column>
           <el-table-column
+            prop="gatewayName"
+            label="网关名">
+          </el-table-column>
+          <el-table-column
             width="100"
             >
             <template slot-scope="scope">
-              <i class="el-icon-edit cp" @click="edit(scope.row.id)"></i>
+              <i class="el-icon-edit cp pr20" @click="edit(scope.row.id)"></i>
               <i class="el-icon-view cp" @click="goDetail"></i>
             </template>
           </el-table-column>
@@ -41,9 +45,15 @@
             <el-input v-model="editForm.name"></el-input>
           </el-form-item>
           <el-form-item label="网关序列号" :label-width="labelWidth">
-            <el-select v-model="editForm.region" placeholder="选择网关序列号" style="width:100%;">
-              <el-option label="111111" value="1"></el-option>
+            <el-select placeholder="选择网关序列号" style="width:100%;" value="111111" disabled>
+              <el-option label="111111" value="1" selected></el-option>
               <el-option label="222222" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="网关名" :label-width="labelWidth">
+            <el-select placeholder="选择网关名" style="width:100%;" value="网关1" disabled>
+              <el-option label="网关1" value="1"></el-option>
+              <el-option label="网关2" value="2"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -78,11 +88,13 @@
             {
               id:1,
               name:'草莓大棚',
+              gatewayName:'网关1',
               gateway:'12342424'
             },
             {
               id:2,
               name:'葡萄玻璃温室',
+              gatewayName:'网关1',
               gateway:'12342424'
             },
           ]
@@ -125,16 +137,13 @@
         padding-left: 2rem;
         padding-right: 2rem;
         .el-form-item__label{
-          font-size: 1rem;
         }
       }
       .el-button{
-        font-size: 1rem;
       }
     }
     .title{
       text-align: center;
-      font-size: 1.2rem;
     }
   }
   .shalter-list-container{
@@ -157,7 +166,7 @@
       border-left:1px solid #e0e0e0;
       border-right:1px solid #e0e0e0;
       border-bottom:1px solid #e0e0e0;
-      font-size:1rem;
+      font-size:0.7rem;
       th{
         background-color: #f7f7f7;
         &:nth-child(1){

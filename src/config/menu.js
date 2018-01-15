@@ -10,11 +10,7 @@ const leftmenu = [
         name:'大棚温室管理',
         icon:'',
         path:'/shalter/list',
-      },{
-        name:'草莓大棚',
-        icon:'',
-        path:'/shalter/detail',
-      }]
+      },]
     },
     {
         name:'大田',

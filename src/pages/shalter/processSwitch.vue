@@ -1,7 +1,7 @@
 <template>
     <div class="process-switch fr" :status="status">
       <div class="switch-onOff fl">
-        <span class="text">开启中</span>
+        <span class="text"><span>{{status===4?'开启中':'关闭中'}}</span><i class="el-icon-loading"></i></span>
         <div class="option-btn l b-close" :class="status===0?'disable':''">
           <div class="out"></div>
           <div class="inside">关</div>
@@ -15,7 +15,7 @@
           <div class="right"></div>
         </div>
       </div>
-      <div class="stop fr" :class="acting?'':'disable'">停</div>
+      <div class="stop fr" :class="(status===4||status===5)?'':'disable'">停</div>
     </div>
 </template>
 
@@ -23,7 +23,6 @@
     export default{
       data(){
         return {
-          acting:false,
         }
       },
       props:{
@@ -139,16 +138,8 @@
       .option-btn{
         &.b-open{
             .left{
-              animation-name: leftAni1, leftAni2;
-              animation-duration: 1s, 1s;
-              animation-timing-function: ease, ease;
-              animation-delay: 0s, 1s;
-              animation-iteration-count: infinite;
-              animation-direction: alternate;
-              animation-play-state: paused,running;
             }
             .right{
-              animation: rightAni1 1s linear 0s infinite alternate,rightAni2 1s linear 1s infinite alternate;
             }
          }
         &.b-close{
@@ -171,7 +162,7 @@
     }
   }
     .switch-onOff{
-      width:100px;
+      width:110px;
       height: 30px;
       margin-top: 5px;
       color: #000;
@@ -256,38 +247,6 @@
     }
     .stop{
       cursor: pointer;
-    }
-  }
-  @keyframes rightAni1 {
-    0%{
-      transform: rotate(0deg);
-    }
-    100%{
-      transform: rotate(180deg);
-    }
-  }
-  @keyframes rightAni2 {
-    0%{
-      transform: rotate(0deg);
-    }
-    100%{
-      transform: rotate(0deg);
-    }
-  }
-  @keyframes leftAni1 {
-    0%{
-      transform: rotate(0deg);
-    }
-    100%{
-      transform: rotate(0deg);
-    }
-   }
-  @keyframes leftAni2 {
-    0%{
-      transform: rotate(0deg);
-    }
-    100%{
-      transform: rotate(180deg);
     }
   }
 </style>
