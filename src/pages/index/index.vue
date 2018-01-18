@@ -110,9 +110,9 @@
         background-color: rgba(0,0,0,0.50);
         padding: 1rem;
         color:#fff;
-        font-size: 1rem;
+        font-size: .9rem;
         width:20rem;
-        top: 6rem;
+        top: 4rem;
         left: 4rem;
         position:absolute;
         .title{

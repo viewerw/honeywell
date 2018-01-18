@@ -1,8 +1,37 @@
 /**
  *element-ui 样式覆盖
  */
-.self-tabel{
-
+.self-table{
+  border:1px solid #e0e0e0;
+  thead{
+    color: #000;
+  }
+  th{
+    div{
+      line-height: 24px;
+    }
+  }
+  th.is-leaf,td{
+    border-bottom:1px solid #e0e0e0;
+  }
+  &.el-table--striped .el-table__body tr.el-table__row--striped td{
+    background-color: #f7f7f7;
+  }
+  .el-table__row.expanded{
+    td{
+      background-color: #f7f7f7;
+    }
+  }
+  .el-table__expanded-cell{
+    padding-left: 0;
+    &:hover{
+      background-color: transparent!important;
+    }
+  }
+  .el-table__expanded-cell[class*=cell]{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 .self-form{
     &.noRequired{
@@ -15,10 +44,10 @@
 }
 .self-input{
     input{
-      border-radius:0; 
+      border-radius:0;
       &:focus{
         border-color:#7EB338;
-        border-radius:0;   
+        border-radius:0;
       }
     }
 }

@@ -25,17 +25,17 @@
 			</div>
 			<el-table
 				:data="getwayTable"
-				border
+        class="self-table main-table"
 				style="width: 100%">
 				<el-table-column
 					prop="name"
 					label="设备名称"
-					width="180">
+         >
 				</el-table-column>
 				<el-table-column
 					prop="id"
 					label="序列号"
-					width="180">
+	      >
 				</el-table-column>
 				<el-table-column
 					prop="status"
@@ -43,8 +43,8 @@
 				</el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope = "scope">
-            <div class="tr pr20">
-              <i class="el-icon-edit" @click = "changeGetwayName"></i>
+            <div class=" pr20">
+              <i class="el-icon-edit act-btn" @click = "changeGetwayName"></i>
             </div>
 					</template>
 				</el-table-column>
@@ -54,6 +54,7 @@
 			<el-table
 				:data="sensorTable"
 				default-expand-all
+        class="self-table"
 				style="width: 100%">
           <el-table-column type="expand">
                 <template class = "" slot-scope="props">
@@ -66,8 +67,8 @@
                   <el-col :span = "4">
                     <div class="cell">
                       <div class="tr pr20">
-                        <i class="el-icon-edit pr20 cp" @click="dialogSensorVisible=true"></i>
-                        <i class="el-icon-delete cp" @click="deleteSensor"></i>
+                        <i class="el-icon-edit pr20 cp act-btn" @click="dialogSensorVisible=true"></i>
+                        <i class="el-icon-delete cp act-btn" @click="deleteSensor"></i>
                       </div>
                     </div>
                   </el-col>
@@ -102,8 +103,8 @@
           <el-table-column :render-header="renderSensorOptionHeader" style="width:16.66%;">
             <template slot-scope = "scope">
               <div class="tr pr20">
-                <i class="el-icon-edit pr20 cp" @click = "editDialogSensorVisible=true"></i>
-                <i class="el-icon-delete cp" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit pr20 cp act-btn" @click = "editDialogSensorVisible=true"></i>
+                <i class="el-icon-delete cp act-btn" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -114,16 +115,17 @@
 				<div class = "control-title">控制器</div>
 			<el-table
 				:data="controlTable"
+        class="self-table"
 				default-expand-all
 				style="width: 100%">
           <el-table-column type="expand">
             <template class = "" slot-scope="props">
             <el-row class ="expand-row" v-for = "(sensor,index) in props.row.group">
-              <span style="width:15%" >{{sensor.name}}</span>
-              <span style="width:17%">{{sensor.id}}</span>
-              <span style="width:17%" :class="sensor.status === '离线'?'status-offline':'status-online'">{{sensor.status}}</span>
+              <span style="width:17%">{{sensor.name}}</span>
+              <span style="width:19%">{{sensor.id}}</span>
+              <span style="width:10%" :class="sensor.status === '离线'?'status-offline':'status-online'">{{sensor.status}}</span>
               <span style="width:17%">{{sensor.time}}</span>
-              <span style="width:20%" class="vam">
+              <span style="width:22%" class="vam">
                 <div class="cell">
                   <div class="tr pr20">
                     <el-switch
@@ -138,8 +140,8 @@
                 </div>
               </span>
               <span style="width:10%" class="tr pr20">
-                <i class="el-icon-edit pr20 cp" @click="dialogControlVisible=true"></i>
-                <i class="el-icon-delete cp" @click="deleteControl"></i>
+                <i class="el-icon-edit pr20 cp act-btn" @click="dialogControlVisible=true"></i>
+                <i class="el-icon-delete cp act-btn" @click="deleteControl"></i>
               </span>
             </el-row>
             </template>
@@ -153,11 +155,11 @@
           <el-table-column label="设备状态"></el-table-column>
           <el-table-column label="最后更新时间"></el-table-column>
           <el-table-column label="操作"></el-table-column>
-          <el-table-column :render-header="renderSensorOptionHeader" >
+          <el-table-column :render-header="renderSensorOptionHeader">
             <template slot-scope = "scope" >
               <div class="tr pr20">
-                <i class="el-icon-edit pr20 cp" @click = "editDialogControlVisible=true"></i>
-                <i class="el-icon-delete cp" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit pr20 cp act-btn" @click = "editDialogControlVisible=true"></i>
+                <i class="el-icon-delete cp act-btn" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
               </div>
             </template>
           </el-table-column>
@@ -251,7 +253,7 @@
     </el-dialog>
 
 		<!-- 阈值弹框-->
-		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="60%" @close="closeThresholdsDialog">
+		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="1010px" @close="closeThresholdsDialog">
 			<div class ="dialog-top">
 				<span>传感器阈值名</span>
 				<el-input v-model = "thresholdName" size = "small" style = "width:250px"></el-input>
@@ -637,7 +639,7 @@ import processSwitch from './processSwitch'
 				this.dialogGetwayVisible = false;
 			},
 			renderSensorOptionHeader(h){
-				return h('div',{class:'tr pr20 w100'},[h('i',{class:'el-icon-plus cp',on: {click: this.addNewSensorGroup},},)]);
+				return h('div',{class:'tr pr20 w100 act-btn'},[h('i',{class:'el-icon-plus cp',on: {click: this.addNewSensorGroup},},)]);
 			},
 			addNewSensorGroup(){
 				this.dialogSensorGroupVisible  = true;
@@ -659,6 +661,15 @@ import processSwitch from './processSwitch'
 <style lang="scss">
   .status-online{
 
+  }
+  .main-table{
+    border: 1px solid #e0e0e0;
+    thead{
+      border-bottom: 1px solid #e0e0e0;
+      th{
+        background-color: #f7f7f7;
+      }
+    }
   }
   .status-offline{
     color:red
@@ -748,15 +759,6 @@ import processSwitch from './processSwitch'
           background-color: #7eb338;
          }
       }
-      &>div:nth-child(1){
-
-        }
-      &>div:nth-child(2){
-
-        }
-      &>div:nth-child(3){
-
-        }
     }
     .date{
       font-size: 1rem;
@@ -804,15 +806,23 @@ import processSwitch from './processSwitch'
 				padding-left:50px;
 				box-sizing:border-box;
 			}
-			.expand-row {
-				margin-bottom:30px
-			}
-			.expand-row:last-child{
-				margin-bottom:0px;
-			}
-
 		}
-		.control{
+  .expand-row {
+    padding-left: 50px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 24px;
+    &>div{
+      padding: 0 10px;
+      }
+  }
+  .expand-row:last-child{
+    margin-bottom:0px;
+    border-bottom: none;
+  }
+
+  .control{
 			margin:30px 0;
       .process-switch{
 
@@ -849,12 +859,6 @@ import processSwitch from './processSwitch'
 				line-height:40px;
 				padding-left:50px;
 				box-sizing:border-box;
-			}
-			.expand-row {
-				margin-bottom:30px
-			}
-			.expand-row:last-child{
-				margin-bottom:0px;
 			}
 		}
 

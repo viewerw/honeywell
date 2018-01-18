@@ -45,6 +45,9 @@
     .login{
         width:100%;
         height:100%;
+        background-image:url(../../assets/images/login/bg.png);
+        background-position: center center;
+        background-repeat: no-repeat;
         .logo{
           width: max-content;
           margin-left: auto;

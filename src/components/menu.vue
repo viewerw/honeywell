@@ -56,7 +56,7 @@
             display:block;
         }
         i{
-          font-size:1.9rem;
+          font-size:2.3rem;
           padding-right: 10px;
         }
         .el-menu{

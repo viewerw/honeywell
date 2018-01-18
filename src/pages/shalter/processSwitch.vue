@@ -137,10 +137,7 @@
       }
       .option-btn{
         &.b-open{
-            .left{
-            }
-            .right{
-            }
+           cursor: not-allowed;
          }
         &.b-close{
             display: none;
@@ -157,6 +154,9 @@
       .option-btn{
         &.b-open{
            display: none;
+         }
+        &.b-close{
+          cursor: not-allowed;
          }
       }
     }

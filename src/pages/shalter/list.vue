@@ -12,7 +12,7 @@
         <el-table
           :data="_list"
           stripe
-          class="shalter-list-table"
+          class="shalter-list-table self-table"
           style="width:100%"
           >
           <el-table-column
@@ -32,8 +32,8 @@
             width="100"
             >
             <template slot-scope="scope">
-              <i class="el-icon-edit cp pr20" @click="edit(scope.row.id)"></i>
-              <i class="el-icon-view cp" @click="goDetail"></i>
+              <i class="el-icon-edit cp pr20 act-btn" @click="edit(scope.row.id)"></i>
+              <i class="el-icon-view cp act-btn" @click="goDetail"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -154,7 +154,6 @@
       border-right:1px solid #e0e0e0;
       padding-left:1.5rem;
       .el-input{
-        font-size:1rem;
         padding-left:1rem;
         width:15rem;
         input{
@@ -166,7 +165,6 @@
       border-left:1px solid #e0e0e0;
       border-right:1px solid #e0e0e0;
       border-bottom:1px solid #e0e0e0;
-      font-size:0.7rem;
       th{
         background-color: #f7f7f7;
         &:nth-child(1){

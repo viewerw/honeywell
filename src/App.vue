@@ -17,6 +17,7 @@ body,html{
   font-size: 20px;
   width: 100%;
   height: 100%;
+  font-family: Microsoft YaHei!important;
 }
 @media screen and (max-width: 1500px){
   body,html{

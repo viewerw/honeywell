@@ -1,13 +1,13 @@
 <template>
     <div class="left-side">
         <div class="header">
-            <div class="title" @click="goIndex">
-                <img src="../../assets/images/Honeywell_Logo.png">
+            <div class="title cp" @click="goIndex">
+                <img src="../../assets/images/index/logo.png">
             </div>
             <div class="info">
                 <p>温度：25 ℃</p>
                 <p>湿度：60%</p>
-                <p>风力/风向：1级  <span style="padding-left: 5px;transform: rotate(0deg)">▲</span></p>
+                <p>风力/风向：1级  <i style="padding-left: 5px;transform: rotate(0deg);font-size: 20px;" class="iconfont icon-arrow"></i></p>
                 <p>光辐射：210 w/m² </p>
                 <p>雨量：18mm</p>
                 <p>气压：108hPa</p>
@@ -22,7 +22,7 @@
         </div>
         <!--<div class="slide-bar" :class="slideOpen?'open':''" @click="toggleSlide"></div>-->
         <div class="new-slide-bar" :class="slideOpen?'open':''" @click="toggleSlide">
-          <i class="iconfont" :class="slideOpen?'icon-close':'icon-slidebar'"></i>
+          <i class="iconfont icon-slidebar"></i>
         </div>
     </div>
 </template>
@@ -100,14 +100,18 @@
             z-index: 100;
             left: 1rem;
             top: 1rem;
+            transform: rotate(90deg);
             i{
-              font-size: 1.5rem;
-              color: #2c2c2c;
+              font-size: 1rem;
+              color: #fff;
               font-weight: bold;
               cursor: pointer;
+              background-color: #a7a7a7;
+              padding: 6px;
             }
             &.open{
                 left: 17.25rem;
+                transform: rotate(0deg);
             }
         }
         .slide-bar{
