@@ -41,143 +41,135 @@
 					prop="status"
 					label="设备状态">
 				</el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope = "scope">
-            <div class=" pr20">
-              <i class="el-icon-edit act-btn" @click = "changeGetwayName"></i>
-            </div>
-					</template>
-				</el-table-column>
 			</el-table>
-			<div class= "sensor">
-				<div class = "sensor-title">传感器</div>
-			<el-table
-				:data="sensorTable"
-				default-expand-all
-        class="self-table"
-				style="width: 100%">
-          <el-table-column type="expand">
-                <template class = "" slot-scope="props">
-                <el-row class ="expand-row" v-for = "sensor in props.row.group">
-                  <el-col :span = "4">{{sensor.name}}</el-col>
-                  <el-col :span = "4">{{sensor.degree}}(<span class="goChart" @click="dialogChartVisible=true">历史曲线</span>)</el-col>
-                  <el-col :span = "4">{{sensor.id}}</el-col>
-                  <el-col :span = "4">{{sensor.status}}</el-col>
-                  <el-col :span = "4">{{sensor.time}}</el-col>
-                  <el-col :span = "4">
-                    <div class="cell">
-                      <div class="tr pr20">
-                        <i class="el-icon-edit pr20 cp act-btn" @click="dialogSensorVisible=true"></i>
-                        <i class="el-icon-delete cp act-btn" @click="deleteSensor"></i>
-                      </div>
-                    </div>
-                  </el-col>
-                </el-row>
-                </template>
-           </el-table-column>
-          <el-table-column label="设备名称" style="width:16.66%;">
-             <template  slot-scope="scope">
-               <span>{{scope.row.name}}</span>
-             </template>
-           </el-table-column>
-          <el-table-column label="读数">
-             <template slot-scope="scope">
-                <el-select size = "mini" v-model="scope.row.threshold" placeholder="请选择">
-                  <el-option
-                  v-for="item in thresholds"
-                  :key="item.id"
-                  :label="item.label"
-                  :value="item.id">
-                    <span style="float: left">{{ item.label }}</span>
-                    <i  style = "float:right;margin-top:10px;" @click.stop = "editThreshold(item.label,item.value,item.id)" class=" icon-position el-icon-edit "></i>
-                  </el-option>
-                  <el-option style = "background:#7eb338;color:#ffffff;">
-                    <span  @click.stop= "addNewThreshold"><i class="el-icon-plus"></i>添加阈值设定</span>
-                  </el-option>
-              </el-select>
-             </template>
-           </el-table-column>
-          <el-table-column label="序列号" style="width:16.66%;"></el-table-column>
-          <el-table-column label="设备状态" style="width:16.66%;"></el-table-column>
-          <el-table-column label="更新时间" style="width:16.66%;"></el-table-column>
-          <el-table-column :render-header="renderSensorOptionHeader" style="width:16.66%;">
-            <template slot-scope = "scope">
+			<div class="sensor">
+				<div class="sensor-title">
+          传感器
+          <el-select size = "mini" v-model="threshold" placeholder="请选择" style="margin-left: 20px">
+            <el-option
+              v-for="item in thresholds"
+              :key="item.id"
+              :label="item.label"
+              :value="item.id">
+              <span style="float: left">{{ item.label }}</span>
+              <i  style = "float:right;margin-top:10px;" @click.stop = "editThreshold(item.label,item.value,item.id)" class=" icon-position el-icon-edit "></i>
+            </el-option>
+            <el-option style = "background:#7eb338;color:#ffffff;" value="0">
+              <span  @click.stop= "addNewThreshold"><i class="el-icon-plus"></i>添加阈值设定</span>
+            </el-option>
+          </el-select>
+        </div>
+        <el-table
+          :data="sensorTable"
+          class="self-table"
+          stripe
+          style="width: 100%">
+          <el-table-column
+            prop="name"
+            :min-width="130"
+            label="设备名称">
+          </el-table-column>
+          <el-table-column
+            :min-width="130"
+            label="读数">
+            <template slot-scope="scope">
+              {{scope.row.value}}(<span class="goChart" @click="dialogChartVisible=true">历史曲线</span>)
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="temperature"
+            :min-width="100"
+            label="板载温度(℃)">
+          </el-table-column>
+          <el-table-column
+            prop="voltage"
+            :min-width="80"
+            label="电压(V)">
+          </el-table-column>
+          <el-table-column
+            prop="electricity"
+            :min-width="120"
+            label="电量(mAh)">
+          </el-table-column>
+          <el-table-column
+            prop="status"
+            :min-width="120"
+            label="放置状态（X, Y, Z）">
+          </el-table-column>
+          <el-table-column
+            prop="time"
+            :min-width="120"
+            label="更新时间">
+          </el-table-column>
+          <el-table-column
+            :min-width="120">
+            <template slot-scope = "scope" >
               <div class="tr pr20">
-                <i class="el-icon-edit pr20 cp act-btn" @click = "editDialogSensorVisible=true"></i>
-                <i class="el-icon-delete cp act-btn" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
+                <i class="el-icon-edit pr20 cp act-btn" @click = "dialogSensorVisible=true"></i>
               </div>
             </template>
           </el-table-column>
-			</el-table>
+        </el-table>
 			</div>
 		<!--控制器-->
 		<div class= "control">
-				<div class = "control-title">控制器</div>
-			<el-table
-				:data="controlTable"
+				<div class="control-title">控制器</div>
+        <el-table
+        :data="controlTable"
         class="self-table"
-				default-expand-all
-				style="width: 100%">
-          <el-table-column type="expand">
-            <template class = "" slot-scope="props">
-            <el-row class ="expand-row" v-for = "(sensor,index) in props.row.group">
-              <span style="width:17%">{{sensor.name}}</span>
-              <span style="width:19%">{{sensor.id}}</span>
-              <span style="width:10%" :class="sensor.status === '离线'?'status-offline':'status-online'">{{sensor.status}}</span>
-              <span style="width:17%">{{sensor.time}}</span>
-              <span style="width:22%" class="vam">
-                <div class="cell">
-                  <div class="tr pr20">
-                    <el-switch
-                      v-if="sensor.switch !== undefined"
-                      v-model="sensor.switch"
-                      v-popover:popover
-                      active-color="#13ce66"
-                      inactive-color="#ff4949">
-                    </el-switch>
-                    <process-switch v-else class="process-switch" :status="sensor.mark"></process-switch>
-                  </div>
-                </div>
-              </span>
-              <span style="width:10%" class="tr pr20">
-                <i class="el-icon-edit pr20 cp act-btn" @click="dialogControlVisible=true"></i>
-                <i class="el-icon-delete cp act-btn" @click="deleteControl"></i>
-              </span>
-            </el-row>
-            </template>
-          </el-table-column>
-          <el-table-column label="设备名称">
-             <template  slot-scope="scope">
-               <span>{{scope.row.name}}</span>
-             </template>
-           </el-table-column>
-          <el-table-column label="序列号"></el-table-column>
-          <el-table-column label="设备状态"></el-table-column>
-          <el-table-column label="最后更新时间"></el-table-column>
-          <el-table-column label="操作"></el-table-column>
-          <el-table-column :render-header="renderSensorOptionHeader">
-            <template slot-scope = "scope" >
-              <div class="tr pr20">
-                <i class="el-icon-edit pr20 cp act-btn" @click = "editDialogControlVisible=true"></i>
-                <i class="el-icon-delete cp act-btn" @click = "deleteGroup('sensor',scope.row.id,scope.row.name)"></i>
-              </div>
-            </template>
-          </el-table-column>
-			</el-table>
+        stripe
+        style="width: 100%">
+        <el-table-column
+          prop="name"
+          :min-width="130"
+          label="设备名称">
+        </el-table-column>
+        <el-table-column
+          prop="temperature"
+          :min-width="100"
+          label="板载温度(℃)">
+        </el-table-column>
+        <el-table-column
+          prop="voltage"
+          :min-width="80"
+          label="电压(V)">
+        </el-table-column>
+        <el-table-column
+          prop="electricity"
+          :min-width="120"
+          label="电量(mAh)">
+        </el-table-column>
+        <el-table-column
+          prop="status"
+          :min-width="120"
+          label="放置状态（X, Y, Z）">
+        </el-table-column>
+        <el-table-column
+          prop="time"
+          :min-width="120"
+          label="更新时间">
+        </el-table-column>
+        <el-table-column
+          label="开关">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.switch"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :min-width="120">
+          <template slot-scope = "scope" >
+            <div class="tr pr20">
+              <i class="el-icon-edit pr20 cp act-btn" @click = "dialogControlVisible=true"></i>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
 			</div>
 		</div>
-		<!--网关名-->
-		<el-dialog class="shalter-edit-dialog" :visible.sync="dialogGetwayVisible" width="30%"  @close="closeGetwayDialog">
-      <div slot="title" class="title">修改大棚名</div>
-      <el-form>
-        <el-form-item label="大棚名：" label-width="80px">
-          <el-input></el-input>
-        </el-form-item>
-      </el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="getwayBtnSure">确 定</el-button>
-			</span>
-		</el-dialog>
     <!--修改传感器-->
     <el-dialog class="shalter-edit-dialog" :visible.sync="dialogSensorVisible" width="30%"  @close="dialogSensorVisible=false">
       <div slot="title" class="title">传感器修改</div>
@@ -185,41 +177,11 @@
         <el-form-item label="传感器名：" label-width="100px">
           <el-input></el-input>
         </el-form-item>
-        <el-form-item label="修改分组：" label-width="100px">
-          <el-select placeholder="选择分组" style="width:100%;" value="组南">
-            <el-option label="组南" value="1" selected></el-option>
-            <el-option label="组北" value="2"></el-option>
-          </el-select>
-        </el-form-item>
       </el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="dialogSensorVisible=false">确 定</el-button>
 			</span>
     </el-dialog>
-    <!--修改传感器组名-->
-    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogSensorVisible" width="30%"  @close="editDialogSensorVisible=false">
-      <div slot="title" class="title">修改分组名</div>
-      <el-form>
-        <el-form-item label="分组名：" label-width="80px">
-          <el-input></el-input>
-        </el-form-item>
-      </el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogSensorVisible=false">确 定</el-button>
-			</span>
-    </el-dialog>
-		<!--传感器分组名-->
-		<el-dialog class="shalter-edit-dialog" title = "创建分组" :visible.sync="dialogSensorGroupVisible" width="30%"  @close="sensorGroupName = ''">
-      <div slot="title" class="title">创建分组</div>
-      <el-form>
-        <el-form-item label="分组名：" label-width="80px">
-          <el-input></el-input>
-        </el-form-item>
-      </el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="sensorGroupBtnSure">确 定</el-button>
-			</span>
-		</el-dialog>
 
     <!--修改控制器-->
     <el-dialog class="shalter-edit-dialog" :visible.sync="dialogControlVisible" width="30%"  @close="dialogControlVisible=false">
@@ -228,43 +190,19 @@
         <el-form-item label="控制器名：" label-width="100px">
           <el-input></el-input>
         </el-form-item>
-        <el-form-item label="修改分组：" label-width="100px">
-          <el-select placeholder="选择分组" style="width:100%;" value="组南">
-            <el-option label="组南" value="1" selected></el-option>
-            <el-option label="组北" value="2"></el-option>
-          </el-select>
-        </el-form-item>
       </el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="dialogControlVisible=false">确 定</el-button>
 			</span>
     </el-dialog>
-    <!--修改控制器组名-->
-    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogControlVisible" width="30%"  @close="editDialogControlVisible=false">
-      <div slot="title" class="title">修改分组名</div>
-      <el-form>
-        <el-form-item label="分组名：" label-width="80px">
-          <el-input></el-input>
-        </el-form-item>
-      </el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogControlVisible=false">确 定</el-button>
-			</span>
-    </el-dialog>
 
 		<!-- 阈值弹框-->
-		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="1010px" @close="closeThresholdsDialog">
-			<div class ="dialog-top">
+		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="550px" @close="closeThresholdsDialog">
+			<div class ="dialog-top tc">
 				<span>传感器阈值名</span>
 				<el-input v-model = "thresholdName" size = "small" style = "width:250px"></el-input>
 			</div>
-      <threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[0]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[1]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[2]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[3]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[4]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[5]"></threshold-set>
-			<threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[6]"></threshold-set>
+      <threshold-set title ="空气温度阈值设定" :values = "[4,3,2,1]" :value.sync = "newThreshold[0]" style="margin: 0 auto;display: inherit;"></threshold-set>
 			<span slot="footer" class="dialog-footer">
 				<el-button type="text" style = "width:100px;font-size:30px;font-weight:bold;margin-right:30px" @click="btnSure">确 定</el-button>
 			</span>
@@ -272,7 +210,7 @@
     <!-- 报表弹框-->
     <el-dialog  class="shalter-edit-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false">
       <div class="chart-container">
-        <div class="title">空气湿度传感器历史曲线</div>
+        <div class="title">土壤湿度传感器历史曲线</div>
         <div class="date">
           <el-date-picker
             ref="date-picker"
@@ -299,7 +237,6 @@ import MinitorVideo from './../../components/minitor-video'
 import ThresholdSet from './../../components/thresholdSet'
 import moment from 'moment'
 import echarts from 'echarts'
-import processSwitch from './processSwitch'
 	export default {
 		data(){
 			return{
@@ -307,15 +244,13 @@ import processSwitch from './processSwitch'
         date:'',
         switchPopover:false,
 				overview:{
-					title:'大棚概况',
-					items:['大棚内分南北两个区域',
-						'装备有一个网关',
-						'十四个传感器',
-						'十三个控制器']
+					title:'大田概况',
+					items:['一个土壤含水率传感器',
+						'一个电磁水阀',]
 					},
 				minitors:[{
-					name:'视频监控南',
-          urls:[
+					name:'实际视频',
+					urls:[
             {
               name:'左转',
               value:'http://vjs.zencdn.net/v/oceans.mp4',
@@ -330,60 +265,26 @@ import processSwitch from './processSwitch'
             },
             {
               name:'下转',
-              value:'http://vjs.zencdn.net/v/oceans3.mp4',
-            },
-          ]
-				},{
-					name:'视频监控北',
-          urls:[
-            {
-              name:'左转',
-              value:'http://vjs.zencdn.net/v/oceans.mp4',
-            },
-            {
-              name:'右转',
-              value:'http://vjs.zencdn.net/v/oceans1.mp4',
-            },
-            {
-              name:'上转',
-              value:'http://vjs.zencdn.net/v/oceans2.mp4',
-            },
-            {
-              name:'下转',
-              value:'http://vjs.zencdn.net/v/oceans3.mp4',
+              value:'http://vjs.zencdn.net/v/oceans4.mp4',
             },
           ]
 				}],
-				getwayTable:[{name:'草莓大棚网关',id:'1234567890ABC',status:'在线'}],
+				getwayTable:[{name:'园区Luro网关',id:'1234567890ABC',status:'在线'}],
 				thresholds:[{label:'阈值1',id:1,value:[1,2,3,4,3,2,1]},{label:'阈值2',id:2,value:[4,2,3,4,3,2,4]}],
-				sensorTable:[{name:'传感器南',threshold:1,group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',},{name:'空气温度传感器1',degree:'371',id:'adbvkljljl1345',status:'离线',time:'2018年1月1日 08:00',}]},{name:'传感器南',group:[{name:'空气温度传感器',degree:'37',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',}]}],
-				controlTable:[{name:'水阀',group:[{name:'水阀南',id:'adbvkljljl1345',status:'在线',time:'2018年1月1日 08:00',switch:true},{name:'水阀北',id:'34325325235',status:'在线',time:'2018年1月1日 09:00',switch:false}]},
-          {name:'遮阳帘',
-            group:[
-              {name:'内遮阳帘',id:'12324555',status:'离线',time:'2018年1月1日 10:00',mark:0},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:1},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:2},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:3},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:4},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:5},
-            ]
-          }],
+				sensorTable:[{name:'土壤湿度传感器1',value:'85%',temperature:'40',voltage:'5.5',electricity:'5.5',status:'112, 20, 30',time:'2017年12月28日  12:00'},{name:'土壤湿度传感器2',value:'85%',temperature:'40',voltage:'5.5',electricity:'5.5',status:'112, 20, 30',time:'2017年12月28日  12:00'}],
+				controlTable:[{name:'蓝莓一区水阀',temperature:'40',voltage:'5.5',electricity:'5.5',status:'112, 20, 30',time:'2017年12月28日  12:00',switch:true},{name:'蓝莓二区水阀',temperature:'40',voltage:'5.5',electricity:'5.5',status:'112, 20, 30',time:'2017年12月28日  12:00',switch:false}],
 				thresholdName:'',
+        threshold:1,
 				newThreshold:[],
-				dialogThresholdVisible:false,
         dialogChartVisible:false,
 				thresholdId:100,
 				isEditing:false,
 				editId:-1,
-
+        dialogThresholdVisible:false,
 				dialogGetwayVisible:false,
 				getwayName:'',
         dialogSensorVisible:false,
-        editDialogSensorVisible:false,
         dialogControlVisible:false,
-        editDialogControlVisible:false,
-        dialogControlVisible:false,
-				dialogSensorGroupVisible:false,
 				sensorGroupName:'',
         dateType:'date',
         dateOption:{
@@ -412,7 +313,6 @@ import processSwitch from './processSwitch'
 			Header,
 			MinitorVideo,
 			ThresholdSet,
-      processSwitch
 			},
     computed:{
     },
@@ -837,7 +737,7 @@ import processSwitch from './processSwitch'
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;
-				padding-left:50px;
+        padding-left: 10px;
 				box-sizing:border-box;
 			}
 		}
@@ -891,7 +791,7 @@ import processSwitch from './processSwitch'
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;
-				padding-left:50px;
+				padding-left:10px;
 				box-sizing:border-box;
 			}
 		}

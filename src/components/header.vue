@@ -22,7 +22,7 @@
 </script>
 <style lang = "scss" scoped>
 .header-bg{
-    background-image: url('../../assets/images/shalterHeader.png');
+    background-image: url('../assets/images/shalterHeader.png');
     width: 100%;
     height:250px;
     background-size: cover;

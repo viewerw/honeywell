@@ -51,7 +51,7 @@
         }
         .middle{
             .degree-bg{
-                background-image: url(../../assets/images/threshold-bg.png);
+                background-image: url(../assets/images/threshold-bg.png);
                 height:200px;
                 width:5px;
                 margin:0 30px;
@@ -69,7 +69,7 @@
                 top:178px;
                 left:-4px;
             }
-            
+
         }
         .right{
             padding:20px 0;

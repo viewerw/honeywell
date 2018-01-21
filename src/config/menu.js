@@ -19,7 +19,12 @@ const leftmenu = [
     {
         name:'大田',
         icon:'icon-datian',
-        path:'',
+        path:'/field',
+        children:[{
+          name:'蓝莓大田',
+          icon:'',
+          path:'/field/detail',
+        }]
     },
     {
       name:'视频监控',

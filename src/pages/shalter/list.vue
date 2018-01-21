@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import Header from './header'
+    import Header from './../../components/header'
     export default{
       data(){
         return {
