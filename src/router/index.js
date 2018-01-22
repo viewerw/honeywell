@@ -49,7 +49,7 @@ const router =  new Router({
       },{
           path:"/field",
           name:"field",
-          redirect:'field/detail',
+          
           component: FieldRouterView,
           children:[{
             path:'detail',
