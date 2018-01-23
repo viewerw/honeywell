@@ -20,9 +20,9 @@ export default {
 						'十三个控制器']
 					},
 			treeData:{
-				label:'jljll',
+				label:'园区loar网关',
 				value:'',
-				childrens:[{label:'son1',childrens:[{label:'son2',childrens:[{label:'son3'},{label:'son3'},{label:'son3'}]},{label:'son2',childrens:[{label:'son3'},{label:'son3'},{label:'son3'}]}]},{label:'son1',childrens:[{label:'son2',childrens:[{label:'son3'},{label:'son3'},{label:'son3'}]},{label:'son2',childrens:[{label:'son3'},{label:'son3'},{label:'son3'}]}]}]
+				childrens:[{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'}]},{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'}]}]},{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器'}]}]},{label:'控制器5812',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'}]},{label:'蓝莓三区',childrens:[{label:'蓝莓1区土壤含水率传感器'},{label:'蓝莓1区土壤含水率传感器'}]}]}]
 			}
 		}
     },

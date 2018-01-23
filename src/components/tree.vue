@@ -33,7 +33,7 @@
             <template v-for="it in node2">
                 <div v-for = "(item,index) in it" :style="{flex:item.childrens.length}" class="ver" :class = "computedClassSon(index,it)">
                     <div class="demo"><span style = "display:flex;align-items:center">
-                             <img class = "editimg" src = "../assets/images/edit.png"/>
+                             <img class = "editimg" src = "../assets/images/edit.png" @click = "showEditDialog"/>
                              <span>
                             {{item.label}}
                              </span>
@@ -48,7 +48,7 @@
                     <div class="last-node">
                        
                         <span style = "display:flex;align-items:center">
-                             <img class = "editimg" src = "../assets/images/edit.png"/>
+                             <img class = "editimg" src = "../assets/images/edit.png"  @click = "showEditDialog"/>
                              <span>
                             {{item.label}}
                              </span>
@@ -56,14 +56,26 @@
                         <el-switch
                             v-popover:popover
                             v-model="item.value"
-                            active-color="#13ce66"
-                            inactive-color="#ff4949">
+                            active-color="#7eb338"
+                            inactive-color="#444444">
                         </el-switch>
                         </div>
                 </div>
             </template>
         </div>
     </div>
+    <!--修改控制器名-->
+    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogSensorVisible" width="30%"  @close="editDialogSensorVisible=false">
+      <div slot="title" class="title">修改控制器名</div>
+      <el-form>
+        <el-form-item label="控制器名：" label-width="100px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogSensorVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
     </div>
 </template>
 
@@ -71,7 +83,8 @@
     export default{
         data(){
             return {
-                switchPopover:false
+                switchPopover:false,
+                editDialogSensorVisible:false,
             }
         },
         props:['treeData'],
@@ -115,7 +128,7 @@
         methods:{
             computedClassSon(index,node){
                 if(node.length===1){
-                    return 'hoz1';
+                    return '';
                 }else if(node.length===2){
                     if(index===0){
                         return 'hoz1';
@@ -131,6 +144,9 @@
                         return 'hoz0'
                     }
                 }
+            },
+            showEditDialog(){
+                this.editDialogSensorVisible = true;
             }
         }
     }
