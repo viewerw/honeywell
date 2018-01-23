@@ -51,7 +51,6 @@ const router =  new Router({
       },{
           path:"/field",
           name:"field",
-          
           component: FieldRouterView,
           children:[{
             path:'detail',

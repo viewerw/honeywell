@@ -9,7 +9,7 @@ import Header from '../../components/header'
 import Tree from '../../components/Tree'
 
 export default {
-    
+
     data(){
         return {
             overview:{

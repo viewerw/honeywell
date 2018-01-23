@@ -682,20 +682,11 @@ import processSwitch from './processSwitch'
 				this.sensorTable.push({name:this.sensorGroupName,threshold:1,group:[]});
 				this.dialogSensorGroupVisible  = false;
 			},
-			deleteGroup(type,id,name){
-				this.$confirm(`确认删除"${name}"?`,{
-					type:'warning',
-					showCancelButton:false,
-				})
-			}
 		}
 
 	}
 </script>
 <style lang="scss">
-  .status-online{
-
-  }
   .main-table{
     border: 1px solid #e0e0e0;
     thead{
