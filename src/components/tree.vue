@@ -1,23 +1,23 @@
 <template>
     <div>
-        <el-popover
-      ref="popover"
-      placement="top"
-      trigger="hover"
-      popper-class="self-popover"
-      :value="switchPopover"
-      v-model="switchPopover">
-      <div class="popover-warn"><i class="iconfont icon-warn"></i></div>
-      <div class="popover-content">
-        <div class="close" @click="switchPopover=false">
-          <i class="el-icon-close"></i>
-        </div>
-        <div class="content">
-          <div class="title">控制器开关提醒</div>
-          <div class="tip">确定要打开水阀<span @click="switchPopover=false">确认开启</span></div>
-        </div>
-      </div>
-    </el-popover>
+        <!--<el-popover
+            ref="popover"
+            placement="top"
+            trigger="hover"
+            popper-class="self-popover"
+            :value="switchPopover"
+            v-model="switchPopover">
+            <div class="popover-warn"><i class="iconfont icon-warn"></i></div>
+            <div class="popover-content">
+                <div class="close" @click="switchPopover=false">
+                <i class="el-icon-close"></i>
+                </div>
+                <div class="content">
+                <div class="title">控制器开关提醒</div>
+                <div class="tip">确定要打开水阀<span @click="switchPopover=false">确认开启</span></div>
+                </div>
+            </div>
+        </el-popover>-->
     <div class = "tree-overview">
         <div style="flex:1;display:flex" >
             <div style="flex:3" class="ver first">
@@ -43,8 +43,8 @@
         </div>
 
         <div style="flex:2.2">
-            <template v-for="it in node3">
-                <div class="unit ver last" v-for = "(item,index) in it" :key = "index" :class = "computedClassSon(index,it)">
+            <template v-for="(it,index0) in node3">
+                <div class="unit ver last" v-for = "(item,index) in it" :key="index0*10+index" :class = "computedClassSon(index,it)">
                     <div class="last-node">
                        
                         <span style = "display:flex;align-items:center">
@@ -53,12 +53,32 @@
                             {{item.label}}
                              </span>
                         </span>
-                        <el-switch
-                            v-popover:popover
-                            v-model="item.value"
-                            active-color="#7eb338"
-                            inactive-color="#444444">
-                        </el-switch>
+                        <el-popover
+                            
+                            placement="top"
+                            trigger="hover"
+                            popper-class="self-popover"
+                            :value="switchPopover"
+                            >
+                            <div class="popover-warn"><i class="iconfont icon-warn"></i></div>
+                            <div class="popover-content">
+                                <div class="close" @click="switchPopover=false">
+                                <i class="el-icon-close"></i>
+                                </div>
+                                <div class="content">
+                                <div class="title">控制器开关提醒</div>
+                                <div class="tip">确定要打开水阀<span @click="switchPopover=false">确认开启</span></div>
+                                </div>
+                            </div>
+                            <el-switch
+                                slot = "reference"
+                               
+                                v-model="item.value"
+                                active-color="#7eb338"
+                                inactive-color="#444444">
+                            </el-switch>
+                        </el-popover>
+                        
                         </div>
                 </div>
             </template>
