@@ -33,6 +33,42 @@
     padding-bottom: 0;
   }
 }
+
+.self-dialog{
+  .el-dialog{
+    width: 30rem;
+    border: 2px solid #7eb338;
+    .el-dialog__body{
+      padding-left: 2rem;
+      padding-right: 2rem;
+      .el-form-item__label{
+      }
+    }
+    .el-button{
+    }
+  }
+  .title{
+    text-align: center;
+  }
+}
+
+.self-table-normal{
+  border-left:1px solid #e0e0e0;
+  border-right:1px solid #e0e0e0;
+  border-bottom:1px solid #e0e0e0;
+  th{
+    background-color: #f7f7f7;
+    &:nth-child(1){
+      padding-left:1.5rem;
+    }
+  }
+  td{
+    &:nth-child(1){
+      padding-left:1.5rem;
+    }
+  }
+}
+
 .self-form{
     &.noRequired{
       .el-form-item__label{

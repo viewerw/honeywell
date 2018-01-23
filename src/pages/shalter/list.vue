@@ -1,7 +1,7 @@
 <template>
     <div>
       <Header :overview = overview></header>
-      <div class="shalter-list-container">
+      <div class="list-container">
         <div class="util-bar">
           <el-input
             v-model="search.name">
@@ -12,12 +12,11 @@
         <el-table
           :data="_list"
           stripe
-          class="shalter-list-table self-table"
+          class="self-table-normal self-table"
           style="width:100%"
           >
           <el-table-column
             prop="name"
-            style="padding-left: 30px"
             label="大棚名">
           </el-table-column>
           <el-table-column
@@ -38,7 +37,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <el-dialog :visible.sync="editVisible" class="shalter-edit-dialog">
+      <el-dialog :visible.sync="editVisible" class="self-dialog">
         <div slot="title" class="title">大棚修改</div>
         <el-form :model="editForm">
           <el-form-item label="大棚名" :label-width="labelWidth">
@@ -144,38 +143,6 @@
     }
     .title{
       text-align: center;
-    }
-  }
-  .shalter-list-container{
-    padding: 1.5rem;
-    .util-bar{
-      border-left:1px solid #e0e0e0;
-      border-top:1px solid #e0e0e0;
-      border-right:1px solid #e0e0e0;
-      padding-left:1.5rem;
-      .el-input{
-        padding-left:1rem;
-        width:15rem;
-        input{
-          border: none;
-        }
-      }
-    }
-    .shalter-list-table{
-      border-left:1px solid #e0e0e0;
-      border-right:1px solid #e0e0e0;
-      border-bottom:1px solid #e0e0e0;
-      th{
-        background-color: #f7f7f7;
-        &:nth-child(1){
-          padding-left:1.5rem;
-         }
-      }
-      td{
-        &:nth-child(1){
-           padding-left:1.5rem;
-         }
-      }
     }
   }
 </style>

@@ -81,3 +81,23 @@ td,th {
 ::-webkit-scrollbar-thumb:hover {
   background: #7d7d7d;
 }
+
+/**
+*复用样式
+**/
+.list-container{
+  padding: 1.5rem;
+  .util-bar{
+    border-left:1px solid #e0e0e0;
+    border-top:1px solid #e0e0e0;
+    border-right:1px solid #e0e0e0;
+    padding-left:1.5rem;
+    .el-input{
+      padding-left:1rem;
+      width:15rem;
+      input{
+        border: none;
+      }
+    }
+  }
+}

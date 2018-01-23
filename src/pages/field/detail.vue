@@ -171,7 +171,7 @@
 			</div>
 		</div>
     <!--修改传感器-->
-    <el-dialog class="shalter-edit-dialog" :visible.sync="dialogSensorVisible" width="30%"  @close="dialogSensorVisible=false">
+    <el-dialog class="self-dialog" :visible.sync="dialogSensorVisible" width="30%"  @close="dialogSensorVisible=false">
       <div slot="title" class="title">传感器修改</div>
       <el-form>
         <el-form-item label="传感器名：" label-width="100px">
@@ -184,7 +184,7 @@
     </el-dialog>
 
     <!--修改控制器-->
-    <el-dialog class="shalter-edit-dialog" :visible.sync="dialogControlVisible" width="30%"  @close="dialogControlVisible=false">
+    <el-dialog class="self-dialog" :visible.sync="dialogControlVisible" width="30%"  @close="dialogControlVisible=false">
       <div slot="title" class="title">控制器修改</div>
       <el-form>
         <el-form-item label="控制器名：" label-width="100px">
@@ -197,7 +197,7 @@
     </el-dialog>
 
 		<!-- 阈值弹框-->
-		<el-dialog  class="shalter-edit-dialog" :visible.sync="dialogThresholdVisible" width="550px" @close="closeThresholdsDialog">
+		<el-dialog  class="self-dialog" :visible.sync="dialogThresholdVisible" width="550px" @close="closeThresholdsDialog">
 			<div class ="dialog-top tc">
 				<span>传感器阈值名</span>
 				<el-input v-model = "thresholdName" size = "small" style = "width:250px"></el-input>
@@ -208,7 +208,7 @@
 			</span>
         </el-dialog>
     <!-- 报表弹框-->
-    <el-dialog  class="shalter-edit-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false">
+    <el-dialog  class="self-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false">
       <div class="chart-container">
         <div class="title">土壤湿度传感器历史曲线</div>
         <div class="date">

@@ -1,7 +1,7 @@
 <template>
 	<div class = "minitor-video">
         <el-button @click = "showVideo">{{minitor.name}}<i class="el-icon-caret-right" style="padding-left:20px "></i></el-button>
-        <el-dialog :title="minitor.name" :visible.sync="dialogTableVisible" @close="stopVideo" class="shalter-edit-dialog" width="50%">
+        <el-dialog :title="minitor.name" :visible.sync="dialogTableVisible" @close="stopVideo" class="self-dialog" width="50%">
             <video ref = "video" :src = "src" autoplay controls></video>
             <div class="mutilSrc">
               <div v-for="item in minitor.urls" :class="src===item.value?'active':''" @click="switchSrc(item.value)">{{item.name}}</div>

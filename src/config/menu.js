@@ -49,7 +49,7 @@ const leftmenu = [
     {
       name:'人员管理',
       icon:'icon-renyuanguanli',
-      path:'',
+      path:'/user',
     },
   ]
 

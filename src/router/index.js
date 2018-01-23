@@ -9,6 +9,8 @@ import ShalterDetail from '../pages/shalter/detail'
 import ShalterList from '../pages/shalter/list'
 import FieldRouterView from '../pages/field/routerView'
 import FieldDetail from '../pages/field/detail'
+import UserRouterView from '../pages/user/routerView'
+import UserList from '../pages/user/list'
 
 
 
@@ -55,6 +57,16 @@ const router =  new Router({
             path:'detail',
             name:'fieldDetail',
             component:FieldDetail
+          }]
+        },{
+          path:"/user",
+          name:"user",
+          redirect:'user/list',
+          component: UserRouterView,
+          children:[{
+            path:'list',
+            name:'userList',
+            component:UserList
           }]
         },{
         path:'/401',

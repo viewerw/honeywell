@@ -17,7 +17,7 @@
             <self-menu></self-menu>
         </div>
         <div class="user">
-            <p>用户名：admin</p>
+            <p>用户名：admin<i class="user-bar" :class="userBar?'el-icon-arrow-down ':'el-icon-arrow-up '" @click="userBar=!userBar"></i></p>
             <p class="cp"><span @click="logout">退出</span></p>
         </div>
         <!--<div class="slide-bar" :class="slideOpen?'open':''" @click="toggleSlide"></div>-->
@@ -31,6 +31,7 @@
     export default{
         data(){
           return {
+            userBar:false,
             slideOpen:true,
           }
         },
@@ -55,6 +56,12 @@
         height: 100%;
         background-color: #404040;
         color:#fff;
+        .user-bar{
+          margin-top: 15px;
+          margin-right: 10px;
+          float: right;
+          cursor: pointer;
+        }
         .header{
             height:18rem;
             .title{
