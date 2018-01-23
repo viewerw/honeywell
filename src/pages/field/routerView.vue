@@ -21,8 +21,7 @@ export default {
 					},
 			treeData:{
 				label:'园区loar网关',
-				value:'',
-				childrens:[{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true}]},{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true}]}]},{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',value:true}]}]},{label:'控制器5812',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:true}]},{label:'蓝莓三区',childrens:[{label:'蓝莓1区土壤含水率传感器',value:true},{label:'蓝莓1区土壤含水率传感器',value:false}]}]}]
+				childrens:[{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true}]},{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true}]}]},{label:'控制器5811',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true}]}]},{label:'控制器5812',childrens:[{label:'蓝莓一区',childrens:[{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true}]},{label:'蓝莓三区',childrens:[{label:'蓝莓1区土壤含水率传感器',showSwitch:false,value:'80%',switch:true},{label:'蓝莓1区土壤含水率传感器',showSwitch:true,value:'80%',switch:true}]}]}]
 			}
 		}
     },

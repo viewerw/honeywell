@@ -54,7 +54,7 @@
                              </span>
                         </span>
                         <el-popover
-                            
+                            v-if = "item.showSwitch"
                             placement="top"
                             trigger="hover"
                             popper-class="self-popover"
@@ -71,14 +71,15 @@
                                 </div>
                             </div>
                             <el-switch
+
                                 slot = "reference"
                                
-                                v-model="item.value"
+                                v-model="item.switch"
                                 active-color="#7eb338"
                                 inactive-color="#444444">
                             </el-switch>
                         </el-popover>
-                        
+                        <span v-else>{{item.value}}</span>
                         </div>
                 </div>
             </template>
