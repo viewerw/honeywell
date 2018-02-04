@@ -9,11 +9,11 @@ import ShalterDetail from '../pages/shalter/detail'
 import ShalterList from '../pages/shalter/list'
 import FieldRouterView from '../pages/field/routerView'
 import FieldDetail from '../pages/field/detail'
+import FieldTree from '../pages/field/orgTree'
 import UserRouterView from '../pages/user/routerView'
 import UserList from '../pages/user/list'
-
-
-
+import waterRouterView from '../pages/watering/routerView'
+import waterMap from '../pages/watering/map'
 
 Vue.use(Router)
 
@@ -56,6 +56,19 @@ const router =  new Router({
             path:'detail',
             name:'fieldDetail',
             component:FieldDetail
+          },{
+            path:'tree',
+            name:'fieldTree',
+            component:FieldTree
+          }]
+        },{
+          path:"/watering",
+          name:"watering",
+          component: waterRouterView,
+          children:[{
+            path:'map',
+            name:'wateringMap',
+            component:waterMap
           }]
         },{
           path:"/user",

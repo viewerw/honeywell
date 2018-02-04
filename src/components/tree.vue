@@ -1,23 +1,5 @@
 <template>
   <div>
-    <!--<el-popover
-        ref="popover"
-        placement="top"
-        trigger="hover"
-        popper-class="self-popover"
-        :value="switchPopover"
-        v-model="switchPopover">
-        <div class="popover-warn"><i class="iconfont icon-warn"></i></div>
-        <div class="popover-content">
-            <div class="close" @click="switchPopover=false">
-            <i class="el-icon-close"></i>
-            </div>
-            <div class="content">
-            <div class="title">控制器开关提醒</div>
-            <div class="tip">确定要打开水阀<span @click="switchPopover=false">确认开启</span></div>
-            </div>
-        </div>
-    </el-popover>-->
     <div class = "tree-overview">
       <div style="flex:1;display:flex" >
         <div style="flex:3" class="ver first">
@@ -32,16 +14,17 @@
       <div style="flex:1" class="son">
         <template v-for="it in node2">
           <div v-for = "(item,index) in it" :style="{flex:item.childrens.length}" class="ver" :class = "computedClassSon(index,it)">
-            <div class="demo"><span style = "display:flex;align-items:center">
-                             <img class = "editimg" src = "../assets/images/edit.png" @click = "showEditDialog"/>
-                             <span>
-                            {{item.label}}
-                             </span>
-                        </span></div>
+            <div class="demo">
+              <span style = "display:flex;align-items:center">
+                <img class = "editimg" src = "../assets/images/edit.png" @click = "editDialogFieldVisible=true"/>
+                <span>
+                {{item.label}}
+                </span>
+              </span>
+            </div>
           </div>
         </template>
       </div>
-
       <div style="flex:2.2">
         <template v-for="(it,index0) in node3">
           <div class="unit ver last" v-for = "(item,index) in it" :key="index0*10+index" :class = "computedClassSon(index,it)">
@@ -58,8 +41,7 @@
                 placement="top"
                 trigger="hover"
                 popper-class="self-popover"
-                :value="switchPopover"
-              >
+                :value="switchPopover">
                 <div class="popover-warn"><i class="iconfont icon-warn"></i></div>
                 <div class="popover-content">
                   <div class="close" @click="switchPopover=false">
@@ -84,7 +66,7 @@
       </div>
     </div>
     <!--修改控制器名-->
-    <el-dialog class="shalter-edit-dialog" :visible.sync="editDialogSensorVisible" width="30%"  @close="editDialogSensorVisible=false">
+    <el-dialog class="self-dialog" :visible.sync="editDialogSensorVisible" width="30%"  @close="editDialogSensorVisible=false">
       <div slot="title" class="title">修改控制器名</div>
       <el-form>
         <el-form-item label="控制器名：" label-width="100px">
@@ -93,6 +75,18 @@
       </el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogSensorVisible=false">确 定</el-button>
+			</span>
+    </el-dialog>
+    <!--修改大田名-->
+    <el-dialog class="self-dialog" :visible.sync="editDialogFieldVisible" width="30%"  @close="editDialogFieldVisible=false">
+      <div slot="title" class="title">修改大田名</div>
+      <el-form>
+        <el-form-item label="大田名：" label-width="100px">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+			<span slot="footer" class="dialog-footer">
+				<el-button type="text" style = "width:100px;font-size:25px;font-weight:bold;margin-right:30px" @click="editDialogFieldVisible=false">确 定</el-button>
 			</span>
     </el-dialog>
   </div>
@@ -104,6 +98,7 @@
       return {
         switchPopover:false,
         editDialogSensorVisible:false,
+        editDialogFieldVisible:false,
       }
     },
     props:['treeData'],
@@ -120,8 +115,6 @@
         item0.grandChildLength = count;
         count=0;
       })
-        console.log('node1')
-        console.log(node1)
         return node1;
       },
       node2(){
@@ -129,8 +122,6 @@
         this.node1.map(item=>{
           node2.push(item.childrens)
       })
-        console.log('node2')
-        console.log(node2)
         return node2;
       },
       node3(){
@@ -173,7 +164,7 @@
 
 <style lang="scss" >
   .tree-overview {
-
+    min-width: 1000px;
     padding:50px;
     box-sizing:border-box;
     width:100%;
@@ -250,7 +241,7 @@
     align-items: center;
     padding-left:10px;
     box-sizing:border-box;
-    width: 180px;
+    width: 160px;
     height: 50px;
     position: absolute;
     margin: auto;
@@ -267,7 +258,7 @@
     align-items: center;
     padding:0 10px;
     box-sizing:border-box;
-    width: 400px;
+    width: 360px;
     height: 50px;
     position: absolute;
     margin: auto;
@@ -279,7 +270,7 @@
     z-index: 99;
   }
   .editimg{
-    width:30px;
+    width:20px;
     margin-right:10px;
   }
   }

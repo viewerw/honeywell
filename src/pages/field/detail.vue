@@ -154,8 +154,8 @@
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.switch"
-              active-color="#13ce66"
-              inactive-color="#ff4949">
+              active-color="#7eb338"
+              inactive-color="#d0d0d0">
             </el-switch>
           </template>
         </el-table-column>

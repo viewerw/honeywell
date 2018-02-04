@@ -1,5 +1,5 @@
 <template>
-    <div class="left-side">
+    <div class="left-side" :class="userBar?'user-edit':''">
         <div class="header">
             <div class="title cp" @click="goIndex">
                 <img src="../../assets/images/index/logo.png">
@@ -17,7 +17,8 @@
             <self-menu></self-menu>
         </div>
         <div class="user">
-            <p>用户名：admin<i class="user-bar" :class="userBar?'el-icon-arrow-down ':'el-icon-arrow-up '" @click="userBar=!userBar"></i></p>
+            <p>用户名：admin<i class="user-bar" :class="userBar?'el-icon-arrow-up':'el-icon-arrow-down'" @click="userBar=!userBar"></i></p>
+            <p style="color: #fff;" class="cp" v-show="userBar" @click="userEdit">修改密码</p>
             <p class="cp"><span @click="logout">退出</span></p>
         </div>
         <!--<div class="slide-bar" :class="slideOpen?'open':''" @click="toggleSlide"></div>-->
@@ -46,7 +47,10 @@
             toggleSlide(){
                 this.slideOpen = !this.slideOpen;
                 this.$emit('toggle');
-            }
+            },
+            userEdit(){
+              this.$emit('showEditUser');
+            },
         }
     }
 </script>
@@ -56,6 +60,14 @@
         height: 100%;
         background-color: #404040;
         color:#fff;
+        &.user-edit{
+          .user{
+            height:7rem;
+          }
+          .menu{
+            height: calc(100% - 25rem);
+          }
+        }
         .user-bar{
           margin-top: 15px;
           margin-right: 10px;

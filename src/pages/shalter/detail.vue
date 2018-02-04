@@ -68,7 +68,7 @@
                     <div class="cell">
                       <div class="tr pr20">
                         <i class="el-icon-edit pr20 cp act-btn" @click="dialogSensorVisible=true"></i>
-                        <i class="el-icon-delete cp act-btn" @click="deleteSensor"></i>
+                        <!--<i class="el-icon-delete cp act-btn" @click="deleteSensor"></i>-->
                       </div>
                     </div>
                   </el-col>
@@ -132,8 +132,8 @@
                       v-if="sensor.switch !== undefined"
                       v-model="sensor.switch"
                       v-popover:popover
-                      active-color="#13ce66"
-                      inactive-color="#ff4949">
+                      active-color="#7eb338"
+                      inactive-color="#d0d0d0">
                     </el-switch>
                     <process-switch v-else class="process-switch" :status="sensor.mark"></process-switch>
                   </div>
@@ -141,7 +141,7 @@
               </span>
               <span style="width:10%" class="tr pr20">
                 <i class="el-icon-edit pr20 cp act-btn" @click="dialogControlVisible=true"></i>
-                <i class="el-icon-delete cp act-btn" @click="deleteControl"></i>
+                <!--<i class="el-icon-delete cp act-btn" @click="deleteControl"></i>-->
               </span>
             </el-row>
             </template>
@@ -209,7 +209,7 @@
 			</span>
     </el-dialog>
 		<!--传感器分组名-->
-		<el-dialog class="self-dialog" title = "创建分组" :visible.sync="dialogSensorGroupVisible" width="30%"  @close="sensorGroupName = ''">
+		<el-dialog class="self-dialog" :visible.sync="dialogSensorGroupVisible" width="30%"  @close="sensorGroupName = ''">
       <div slot="title" class="title">创建分组</div>
       <el-form>
         <el-form-item label="分组名：" label-width="80px">
@@ -364,8 +364,6 @@ import processSwitch from './processSwitch'
               {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:1},
               {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:2},
               {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:3},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:4},
-              {name:'内遮阳帘',id:'12324555',status:'在线',time:'2018年1月1日 10:00',mark:5},
             ]
           }],
 				thresholdName:'',

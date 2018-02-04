@@ -21,6 +21,10 @@ const leftmenu = [
         icon:'icon-datian',
         path:'/field',
         children:[{
+          name:'大田设备管理',
+          icon:'',
+          path:'/field/tree',
+        },{
           name:'蓝莓大田',
           icon:'',
           path:'/field/detail',
@@ -32,9 +36,9 @@ const leftmenu = [
       path:'',
     },
     {
-      name:'泵站',
+      name:'灌溉系统',
       icon:'icon-bengzhan',
-      path:'',
+      path:'/watering/map',
     },
     {
       name:'农事管理',
