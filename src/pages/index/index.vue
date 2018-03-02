@@ -134,6 +134,7 @@
               border-radius: 10px;
               display: block;
               padding: 0;
+              border: none;
               position: absolute;
               &[name="1"]{
                  top: 52%;

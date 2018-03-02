@@ -20,18 +20,18 @@
             label="大棚名">
           </el-table-column>
           <el-table-column
-            prop="gateway"
-            label="网关序列号">
-          </el-table-column>
-          <el-table-column
             prop="gatewayName"
             label="网关名">
+          </el-table-column>
+          <el-table-column
+            prop="gateway"
+            label="网关序列号">
           </el-table-column>
           <el-table-column
             width="100"
             >
             <template slot-scope="scope">
-              <i class="el-icon-edit cp pr20 act-btn" @click="edit(scope.row.id)"></i>
+              <i class="el-icon-edit cp pr20 act-btn" @click="edit(scope.row);editId=scope.$index"></i>
               <i class="el-icon-view cp act-btn" @click="goDetail"></i>
             </template>
           </el-table-column>
@@ -57,8 +57,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="editVisible = false">取 消</el-button>
-          <el-button type="primary" @click="editVisible = false">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" @click="submit">确 定</el-button>
           </div>
       </el-dialog>
     </div>
@@ -74,14 +74,16 @@
           search:{
             name:''
           },
+          editId:null,
           editForm:{
             id:'',
             name:'',
             gateway:'',
           },
+          tempForm:{},
           overview:{
             title:'大棚温室管理',
-            items:['修改大棚名', '建立大棚、网关关联',]
+            items:['修改大棚温室名', '大棚温室总览','大棚温室网关信息']
           },
           list:[
             {
@@ -113,12 +115,21 @@
         Header,
       },
       methods:{
-        edit(id){
+        edit(form){
           this.editVisible = true;
-          this.editForm.id = id;
+          this.tempForm = Object.assign({},form);
+          this.editForm = Object.assign({},form);
         },
         goDetail(){
           this.$router.push({name:'shalterDetail'})
+        },
+        cancel(){
+          this.editVisible = false;
+          this.list.splice(this.editId,1,this.tempForm);
+        },
+        submit(){
+          this.list.splice(this.editId,1,this.editForm);
+          this.editVisible = false;
         },
         clearSearch(){
           this.search.name = ''

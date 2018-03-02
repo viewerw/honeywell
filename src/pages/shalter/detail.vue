@@ -167,7 +167,7 @@
 			</div>
 		</div>
 		<!--网关名-->
-		<el-dialog class="self-dialog" :visible.sync="dialogGetwayVisible" width="30%"  @close="closeGetwayDialog">
+		<el-dialog class="self-dialog" :visible.sync="dialogGetwayVisible" width="30%"  @close="closeGetwayDialog" modal-append-to-body="false">
       <div slot="title" class="title">修改大棚名</div>
       <el-form>
         <el-form-item label="大棚名：" label-width="80px">
@@ -253,7 +253,7 @@
     </el-dialog>
 
 		<!-- 阈值弹框-->
-		<el-dialog  class="self-dialog" :visible.sync="dialogThresholdVisible" width="1030px" @close="closeThresholdsDialog">
+		<el-dialog  class="self-dialog" :visible.sync="dialogThresholdVisible" width="1050px" @close="closeThresholdsDialog">
 			<div class ="dialog-top">
 				<span>传感器阈值名</span>
 				<el-input v-model = "thresholdName" size = "small" style = "width:250px"></el-input>
@@ -270,7 +270,7 @@
 			</span>
         </el-dialog>
     <!-- 报表弹框-->
-    <el-dialog  class="self-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false">
+    <el-dialog  class="self-dialog" :visible.sync="dialogChartVisible" width="800px" @close="dialogChartVisible=false" modal-append-to-body="false">
       <div class="chart-container">
         <div class="title">空气湿度传感器历史曲线</div>
         <div class="date">
@@ -822,7 +822,6 @@ import processSwitch from './processSwitch'
 				width:100%;
 				height:40px;
 				background-color:#E0E0E0;
-				font-family: PingFangSC-Light;
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;
@@ -876,7 +875,6 @@ import processSwitch from './processSwitch'
 				width:100%;
 				height:40px;
 				background-color:#E0E0E0;
-				font-family: PingFangSC-Light;
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;

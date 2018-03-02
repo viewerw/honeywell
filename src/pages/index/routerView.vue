@@ -59,7 +59,7 @@
 .main-container{
     .left-side{
         height:100vh;
-        width: 16.25rem;
+        width: 15.75rem;
         position: fixed;
         top: 0;
         left: 0;
@@ -69,13 +69,13 @@
       z-index: 3000!important;
     }
     .right-side{
-        margin-left: 16.25rem;
+        margin-left: 15.75rem;
         min-height: 100vh;
         z-index: 8;
     }
     &.left-close{
        .left-side{
-         left: -16.25rem;
+         left: -15.75rem;
        }
        .right-side{
          margin-left: 0;

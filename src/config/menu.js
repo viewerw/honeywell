@@ -33,7 +33,7 @@ const leftmenu = [
     {
       name:'视频监控',
       icon:'icon-shipinjiankong',
-      path:'',
+      path:'#1',
     },
     {
       name:'灌溉系统',
@@ -43,12 +43,12 @@ const leftmenu = [
     {
       name:'农事管理',
       icon:'icon-nongshiguanli',
-      path:'',
+      path:'#2',
     },
     {
       name:'事件报警',
       icon:'icon-shijianbaojing',
-      path:'',
+      path:'#3',
     },
     {
       name:'人员管理',

@@ -32,13 +32,12 @@
         margin:0 auto ;
         background-color:rgba(0,0,0,0.5);
         height:150px;
-        padding:40px 20px 0 ;
+        padding:30px 20px 0 ;
         box-sizing:border-box;
         width:max-content;
         .title {
             display: inline-block;
             height:80%;
-            font-family: PingFangSC-Medium;
             font-size: 40px;
             color: #FFFFFF;
             letter-spacing: 0;
@@ -48,7 +47,6 @@
         .detail {
             display: inline-block;
             height:80%;
-            font-family: PingFangSC-Light;
             font-size: 18px;
             color: #FFFFFF;
             vertical-align: top;

@@ -11,13 +11,13 @@
                         <i class="iconfont" :class="item.icon"></i>
                         <span>{{item.name}}</span>
                     </template>
-                    <router-link v-for="(_item,_index) in item.children" :to="_item.path">
+                    <router-link v-for="(_item,_index) in item.children" :to="_item.path" exact>
                         <el-menu-item :index="index+'-'+_index">{{_item.name}}</el-menu-item>
                     </router-link>
                 </el-submenu>
             </template>
             <template v-else>
-                <router-link :to="item.path">
+                <router-link :to="item.path" exact>
                     <el-menu-item :index="index">
                         <i class="iconfont" :class="item.icon"></i>
                         <span slot="title">{{item.name}}</span>
@@ -72,8 +72,8 @@
             .el-submenu__title{
                 color: #B0B0B0;
                 font-size:1.5rem;
-                height:4.5rem;
-                line-height:4.5rem;
+                height:4.8rem;
+                line-height:4.8rem;
                 padding-left: 1rem !important;
                 .el-submenu__icon-arrow{
                     color: #B0B0B0;
@@ -104,10 +104,12 @@
                   color: #fff;
                 }
             }
-            &.is-active{
-                background-color:#7EB338;
-                color:#fff;
-            }
+        }
+        .router-link-active{
+          .el-menu-item{
+             background-color:#7EB338;
+             color:#fff;
+          }
         }
     }
 </style>

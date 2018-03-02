@@ -17,7 +17,6 @@ body,html{
   font-size: 20px;
   width: 100%;
   height: 100%;
-  font-family: Microsoft YaHei!important;
 }
 @media screen and (max-width: 1500px){
   body,html{
@@ -25,7 +24,7 @@ body,html{
   }
 }
 #app {
-  font-family: Microsoft YaHei!important;
+  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif!important;
   width: 100%;
   height: 100%;
 }

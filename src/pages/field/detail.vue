@@ -733,7 +733,6 @@ import echarts from 'echarts'
 				width:100%;
 				height:40px;
 				background-color:#E0E0E0;
-				font-family: PingFangSC-Light;
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;
@@ -787,7 +786,6 @@ import echarts from 'echarts'
 				width:100%;
 				height:40px;
 				background-color:#E0E0E0;
-				font-family: PingFangSC-Light;
 				font-size: 20px;
 				color: #000000;
 				line-height:40px;
